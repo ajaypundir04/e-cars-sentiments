@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "python": "${workspaceFolder}/venv/bin/python3",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "${workspaceFolder}/executor",
+            "args": ["DE"]  // Pass "DE" as a command-line argument
+        }
+    ]
+}

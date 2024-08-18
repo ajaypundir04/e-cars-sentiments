@@ -1,0 +1,204 @@
+References
+1. Anderson, E.; Lin, S.; Simester, D.; Tucker, C. Harbingers of Failure. J. Mark. Res. 2015, 52, 580–592. [CrossRef]
+2. Simester, D. Why Great New Products Fail. MIT Sloan Management Review. Spring. 2016. Available online: Sloanreview.mit.edu
+(accessed on 1 June 2020).
+3. International Energy Agency. In Global EV Outlook 2021; Technology Report; IEA: Paris, France, April 2021; Available online:
+https://www.iea.org/reports/global-ev-outlook-2021 (accessed on 15 June 2021).
+4. Coffman, M.; Bernstein, P.; Wee, S. Electric Vehicles Revisited: A Review of Factors that Affect Adoption. Transp. Rev. 2017, 37,
+79–93. [CrossRef]
+5. Graham, J.D. Chapter 2: Consumer Perspectives. In The Global Rise of the Modern Plug-in Electric Vehicle: Public Policy, Innovation
+and Strategy; Edward Elgar Publishing: Cheltenham, UK, 2021.
+6. International Energy Agency. Global EV Outlook 2021; Trends and Developments in Electric Vehicle Markets; IEA: Paris,
+France, April 2021; Available online: https://www.iea.org/reports/global-ev-outlook-2021/trends-and-developments-inelectric-vehicle-markets (accessed on 15 June 2021).
+7. Wee, S.; Hoffman, M.; La Croix, S. Do Electric Vehicle Incentives Matter: Evidence from the 50 States. Res. Policy 2018, 47,
+1601–1610. [CrossRef]
+Future Transp. 2021, 1 322
+8. Broadbent, G.H.; Drozdzewski, D.; Metternicht, G. Electric Vehicle Adoption: An Analysis of Best Practices and Pitfalls for Policy
+Making from Experiences in Europe and the US. Geogr. Compass 2018, 12, e12358. [CrossRef]
+9. Hardmann, S.; Chandan, A.; Tal, G.; Turrentine, T. The Effectiveness of Financial Purchase Incentives for Battery Electric
+Vehicles—A Review of the Evidence. Renew. Sustain. Energy Rev. 2017, 80, 1100–1111. [CrossRef]
+10. Wappelhorst, S.; Hall, D.; Nicholas, M.; Lutsey, N. Analyzing Policies to Grow the Electric Vehicle Market in European Cities; White
+Paper; ICCT: Washington, DC, USA, 2020.
+11. Cui, H.; Hall, D.; Lutsey, N. Update on the Global Transition to Electric Vehicles through 2019; Briefing; ICCT: Washington, DC, USA,
+2020; p. 687.
+12. National Research Council. Overcoming Barriers to Deployment of Plug-In Electric Vehicles; National Academies Press: Washington,
+DC, USA, 2015; p. 113.
+13. Center for Sustainable Energy. The Clean Vehicle Rebate Project: Summary Documentation of the Electric Vehicle Consumer Survey,
+2013–2015 edition; Report for CARB; Center for Sustainable Energy: San Diego, CA, USA, June 2017.
+14. Jenn, A.; Lee, J.H.; Hardman, S.; Tal, G. An In-depth Examination of Electric Vehicle Incentives: Consumer Heterogeneity and
+Changing Response Over Time. Transp. Res. Part A Policy Pract. 2020, 132, 97–109. [CrossRef]
+15. Tony Quiroga. The 2019 BMW 330i xDrive is not the Heroic Revolution We Were Hoping For. 1 April 2019. Available online:
+Carandriver.com (accessed on 1 June 2020).
+16. EPA Fuel Economy Guide Model Year 2020 and Avg. BEV energy consumption, EPA Fuel Economy Guide Model Year 2020.
+Available online: www.fueleconomy.gov (accessed on 15 June 2021).
+17. UBS Evidence Lab. Electric Car Teardown—Disruption Ahead? Global Research, 18 May 2017.
+18. Don Norman. What Noise Does the Electric Car Make? MIT Technology Review, 7 February 2014.
+19. Electric Vehicles Reduce Stress Behind the Wheel. 20 May 2018. Available online: Levc.com (accessed on 15 June 2021).
+20. McDonald, Loren. EVAdoption Study. Supply: Model Availability and Price Discrepancy Between EVs and ICE Vehicles Remain
+a Top Hurdle to Mass Adoption in the US. 19 May 2019. Available online: www.evadoption.com (accessed on 15 June 2021).
+21. Lutsey, N.; Nicholas, M. Update on Electric Vehicle Costs in the United States through 2030. ICCT. 2019. Available online:
+https://theicct.org/publications/update-US-2030-electric-vehicle-cost (accessed on 1 June 2020).
+22. MIT Energy Initiative. Insights into Future Mobility; A Report from the Mobility of the Future Study; MIT: Cambridge, MA,
+USA, 2019.
+23. Cole, J.; Chem, L.G. “Ticked Off” with GM for Disclosing $145/kWh Battery Cell Pricing. 23 October 2015. Available online:
+Insideevs.com (accessed on 1 June 2020).
+24. Cembalest, M. Eye on the Market; Annual Energy Paper; JP Morgan: New York, NY, USA, 2018.
+25. MIT Energy Initiative. Insights into Future Mobility; MIT Energy Initiative: Cambridge, MA, USA, 2019; Available online:
+http://energy.mit.edu/insightsintofuturemobility (accessed on 15 June 2021).
+26. Hsieh, I.L.; Menghsuan, S.P.; Chiang, Y.M.; Green, W.H. Learning Only Buys You So Much: Practical Limits on Battery Price
+Reduction. Appl. Energy 2019, 239, 218–224. [CrossRef]
+27. Cozzi, L.; Petropoulos, A. Growing Preference for SUVs Challenges Emissions Reductions in Passenger Car Market; Commentary;
+International Energy Agency: Paris, France, 2019.
+28. Deloitte. 2020 Global Automotive Consumer Study: Is Consumer Interest in Advanced Automotive Technologies on the Move?
+2020. Available online: www.deloitte.com/autoconsumers (accessed on 15 June 2021).
+29. Michael Brian Schiffer. Taking Charge: The Electric Automobile in America; Smithsonian Institution Press: Washington, DC, USA,
+1994; p. 187.
+30. Olsen, P. Buying and Electric Car for a Cold Climate? Double Down on Range. Consumer Reports, 15 February 2019.
+31. International Energy Agency. Global Electric Vehicle Outlook. Paris, France. 2018, p. 63. Available online: https://
+centrodeinnovacion.uc.cl/assets/uploads/2018/12/global_ev_outlook_2018.pdf (accessed on 12 December 2018).
+32. Myersdorf, D. Ultra-Fast Charging Batteries and the Cure for EV Charge Anxiety. 16 December 2020. Available online:
+Intelligenttransport.com (accessed on 15 June 2021).
+33. Jian, Y. Chinese Companies on Board to Expand EV Battery Swap Stations. Automotive News China, 27 May 2021.
+34. Voelcker, J. How Much is a Replacement Chevy Bolt EV Electric-Car Battery. 9 June 2017. Available online: Greencarreports.com
+(accessed on 1 June 2020).
+35. Miley, J. Tesla Puts Price on Model 3 Battery Module Replacement around $5000–$7000. Interesting Engineering, 15 April 2009.
+36. Electric Vehicle Batteries and Warrantees. 2 January 2019. Available online: Energysage.com (accessed on 1 June 2020).
+37. Gorzelany, J. Which Electric Cars Offer the Best Warranties? Insideevs News, 18 January 2019.
+38. Tesla, Vehicle Warranty. Available online: https://www.tesla.com/support/vehicle-warranty (accessed on 23 July 2020).
+39. Adlen, N. Is Battery Degradation Still a Major Issue for Electric Cars? New Data Shows How Much Capacity EV Models Lose
+Over Time. 2020. Available online: tflcar.com (accessed on 15 June 2021).
+40. Mueller, D. Used EV Prices Are Finally Heating Up—A Little. Automotive News, 31 December 2018.
+41. Rogers, C. Resale Prices Tumble on Electric Cars. Wall Street Journal, 27 February 2015; 51.
+42. Henry, J. EV Residual Values a Concern for Lenders. 94(6924). Automotive News, 9 March 2020; 26.
+43. Kahn, D. EVs Still Elite but Getting More Equitable. Energy and Environment News, 5 December 2018.
+44. Greene, D.L. Uncertainty, Loss Aversion and Markets for Energy Efficiency. Energy Economics 2011, 33, 608–616. [CrossRef]
+Future Transp. 2021, 1 323
+45. German, J. Hybrid Vehicles: Trends in Technology Development and Cost Reduction. Briefing. International Council on
+Clean Transportation. 23 July 2015. Available online: https://theicct.org/publications/hybrid-vehicles-trends-technologydevelopment-and-cost-reduction (accessed on 1 June 2020).
+46. Duncan, D.; Ku, A.L.; Julian, A.; Carley, S.; Siddiki, S.; Zirogiannis, N.; Graham, J.D. Most Consumers Don’t Buy Hybrids: Is
+Rational Choice a Sufficient Explanation? J. Benefit-Cost Anal. 2019, 10, 1–38. [CrossRef]
+47. Mordor Intelligence. Hybrid Vehicle Market: Growth, Trends, COVID-19 Impact, and Forecasts (2021–2026); Mordor Intelligence:
+Hyderabad, Telengana, India, 2021.
+48. Anker, P. A Pioneer Country? A History of Norwegian Climate Policies. Clim. Chang. 2018, 151, 29–41. [CrossRef]
+49. Figenbaum, E. Perspectives on Norway’s Supercharged Electric Vehicle Policy. Environ. Innov. Soc. Transit. 2017, 25, 14–34.
+[CrossRef]
+50. Bloomberg. Gasoline Prices around the World: The Real Cost of Filling Up. 17 January 2020. Available online: Bloomberg.com
+(accessed on 1 June 2020).
+51. Doyle, A.; Adomaitis, N. Norway Shows the Way with Electric Cars, But at What Cost? 13 March 2013. Available online:
+www.reuters.com/article/2013/03/13/environment-cars-norway (accessed on 1 June 2020).
+52. Figenbaum, E.; Assum, T.; Kolbenstuedt, M. Electromobility in Norway: Experiences and Opportunities. Res. Transp. Econ. 2015,
+50, 29–38. [CrossRef]
+53. Norwegian Climate Policy. Report Number 21 to the Parliament (2011–2012). Recommendations from the Ministry of the
+Environment. 25 April 2012, approved by the Cabinet on the same date (Stoltenberg II Government). Available online:
+www.regjering.co (accessed on 1 June 2020).
+54. Kane, M. Norway Looks to Cut Some Electric Car Incentives in the Future. Inside EVs. 12 May 2015; Kjetil Malkerns Hovland.
+Electric-Car Perks Put Norway in a Pinch. Wall Street Journal, 12 May 2015; B4.
+55. Haugneland, P.; Lorentzen, E.; Bu, C.; Haugo, E. Put a Price on Carbon to Fund EV Incentives: Norwegian Policy Success. EV30
+Symposium. 2017. Available online: https://elbil.no/wp-content/uploads/2016/08/EVS30-Norwegian-EV-policy-paper.pdf
+(accessed on 1 June 2020).
+56. Holland, M. Norway in November: EV Market Share at 80%, Fossils Disappearing. 3 December 2020. Available online:
+Cleantechnica.com (accessed on 15 June 2021).
+57. Brooks, A. Norway Wrestles with Costly EV Subsidies: World Leader at a Crossroads. 27 June 2017. Available online:
+MasterResources.org (accessed on 1 June 2020).
+58. Edelstein, S. California $1500 Point-of-Sale Rebate on EVs Starts This Week. 19 November 2020. Available online: Greencarreports.
+com (accessed on 1 June 2020).
+59. Kane, M. California Plug-Ins Capture 8% of the Market in 2020. 6 February 2021. Available online: Evnews.com (accessed on 15
+June 2021).
+60. Edmunds. 2021 Tesla Model 3. Available online: Edmunds.com (accessed on 19 July 2021).
+61. Carlson, K. As it Speeds Ahead with Austin Factory, Tesla Hits New Production High. Austin- American Statesman. 2 April 2021.
+Available online: Statesman.com (accessed on 15 June 2021).
+62. Automotive, C. Average New-Vehicle Transaction Prices Continue to Surpass $40,000, According to Kelley Blue Book. 15 February
+2021. Available online: Coxautoinc.com (accessed on 15 June 2021).
+63. Lutz, H. Bolt Surges with New Markets, Attention. Automotive News, 9 January 2021.
+64. Kane, M. California: Plug-Ins Capture Almost 11% of the Market in Q1 2021. 28 June 2021. Available online: Evnews.com
+(accessed on 10 July 2021).
+65. Union of Concerned Scientists. What is ZEV? 7 August 2012. Available online: https://www.ucsusa.org/resources/what-zev
+(accessed on 17 April 2020).
+66. McConnell, V.; Leard, B.; Kardos, F. California’s Evolving Zero Emission Vehicle Program: Pulling New Technology into the
+Market. Resources for the Future. Working Paper. 19–22 November 2019. Available online: https://www.rff.org/publications/
+working-papers/californias-evolving-zero-emission-vehicle-program/ (accessed on 15 June 2021).
+67. California Air Resources Board. California’s Advanced Cars Midterm Review; Summary Report for the Technical Analysis of
+Light-Duty Vehicle Standards; California Air Resources Board: Sacramento, CA, USA, 18 January 2017. Available online:
+https://ww2.arb.ca.gov/resources/documents/2017-midterm-review-report (accessed on 1 June 2020).
+68. California Air Resources Board. Zero Emission Market Development Strategy: Sacramento, CA, USA. Available online: https:
+//ww2.arb.ca.gov/our-work/programs/zero-emission-vehicle-program (accessed on 11 July 2021).
+69. Pendell, R.; Blumenberg, E.; Dawkins, C. What if Cities Combined Car-Based Solutions with Transit to Improve Access to Opportunity?
+Urban Institute: Washington, DC, USA, 2016.
+70. Kahn, D. California to Extend Low-Carbon Fuel Standard through 2030. Scientific American, 30 April 2018.
+71. Sheldon, T.L.; DeShazo, J.R. How Does the Presence of HOV Lanes Affect Plug-In Electric Vehicle Deployment in California? A
+Generalized Propensity Score Approach. J. Environ. Econ. Manag. 2017, 85, 1–25. [CrossRef]
+72. California Energy Commission. Report Shows California Needs 1.2 Million Electric Vehicle Chargers by 2030. Available online:
+https://www.energy.ca.gov/news/2021-06/report-shows-california-needs-12-million-electric-vehicle-chargers-2030 (accessed
+on 9 June 2021).
+Future Transp. 2021, 1 324
+73. Ciferri, L.; Franny, J. BMW Spends Big to Keep Green Lead. Automotive News. 20 August 2007. Available online: https:
+//europe.autonews.com/article/20070820/ANE/70817006/bmw-will-spend-big-to-keep-green-lead (accessed on 15 June 2021).
+74. German Federal Government. National Electromobility Development Plan. August 2009. Available online: https://www.bmvi.
+de/blaetterkatalog/catalogs/219118/pdf/complete.pdf (accessed on 1 June 2020).
+75. Abnett, K.; Carey, N. Once ‘Green’ Hybrid Cars Suddenly Look Like Dinosaurs in Europe. 12 April 2021. Available online:
+https://www.reuters.com/business/retail-consumer/once-green-plug-in-hybrid-cars-suddenly-look-like-dinosaurs-europe2021-04-12/ (accessed on 15 June 2021).
+76. Miravete, E.J.; Moral, M.J.; Thurk, J. Fuel Taxation, Emissions Policy and Competitive Advantage in the Diffusion of European
+Diesel Automobiles. RAND J. Econ. 2002, 33, 275–297. [CrossRef]
+77. Thompson, G.J.; Carder, D.K.; Besch, M.C.; Thiruvengadam, A.; Kappanna, H.K. In-Use Emissions Testing of Light-Duty Diesel
+Vehicles in the US; Consultant Report by West Virginia University; 30 May 2014; ICCT: Washington, DC, USA, 2014.
+78. Fritz, M.; Plotz, P.; Funke, S.A. The Impact of Ambitious Fuel Economy Standards on the Market Uptake of Electric Vehicles and
+Specific CO2 Emissions. Energy Policy 2019, 135, 111006. [CrossRef]
+79. Wappelhorst, S.; Mock, P.; Yang, Z. Using Vehicle Taxation Policy to Lower Transport Emissions: An Overview for Passenger
+Cars in Europe. ICCT. December 2018. Available online: https://theicct.org/publications/using-vehicle-taxation-policy-lowertransport-emissions (accessed on 1 June 2020).
+80. Staff, R. Merkel Wants Germany to Have 1 Million Electric Car Charging Points by 2030. 3 November 2019. Available online:
+reuters.com (accessed on 1 June 2020).
+81. Kane, M. Germany: Plug-In Car Share at 26%: Records Everywhere in December 2020. 16 January 2021. Available online:
+Insideevs.com (accessed on 15 July 2021).
+82. Langness, T. Edmunds: Top Picks for Road Trips with Maximum Range. Washington Post, 12 August 2020.
+83. U.S. Department of Energy. Compare Electric Cars Side-by-Side. U.S. Environmental Protection Agency. Available online:
+https://www.fueleconomy.gov (accessed on 15 July 2021).
+84. Plötz, P.; Moll, C.; Li, Y.; Bieker, G.; Mock, P. Real-World Usage of Plug-In Hybrid Electric Vehicles: Fuel Consumption, Electric
+Driving, and CO2 Emissions. International Council on Clean Transportation. White Paper. 27 September 2020. Available online:
+https://theicct.org/publications/phev-real-world-usage-sept2020 (accessed on 15 July 2021).
+85. Bannon, E. Plug-In Hybrids in New Emissions Scandal as Tests Show Higher Pollution than Claimed. 23 November 2020.
+Available online: Transportenvironment.org (accessed on 15 July 2021).
+86. Carey, N.; Abnett, K.; Wissenbach, I. EU Set to Call Time on Combustion Engine Within Two Decades. 13 July 2021. Available
+online: Reuters.com (accessed on 15 July 2021).
+87. McKerracher, C. Hyperdrive Daily: Battery Swapping Makes a Comeback in China. 6 April 2021. Available online: Bloomberg.com
+(accessed on 15 July 2021).
+88. Sun, Y.; Munroe, T. EV Maker Nio to Have 4000 Battery Swapping Stations Globally in 2025. 8 July 2021. Available online:
+Reuters.com (accessed on 15 July 2021).
+89. Lambert, F. NIO Announces Plan to Open Battery Swap Stations to Other Electric Automakers—Any Takers? 9 July 2021.
+Available online: Electrek.co (accessed on 15 July 2021).
+90. Bloomberg. The World’s Leading Electric-Car Visionary Isn’t Elon Musk. Economic Times, 27 September 2018.
+91. Jin, L.; He, H.; Cui, H.; Lutsey, N.; Wu, C.; Chu, Y.; Zhu, J.; Lu, X. Driving a Green Future: A Retrospective Review of China’s
+Electric Vehicle Development and Outlook for the Future. ICCT. January 2021. Available online: https://theicct.org/publications/
+china-green-future-ev-jan2021 (accessed on 15 July 2021).
+92. Kong, T.Y. New Energy Vehicles Industry in China: Developments and Challenges. East Asian Policy 2016, 8, 87–99. [CrossRef]
+93. Jaffe, A.M. Is OPEC China’s Problem? Council on Foreign Relations. Blog Post, 7 June 2019.
+94. Masters, P. Electric Cars: The Drive for a Sustainable Solution in China; Research Brief; China Environment Forum. Wilson Center:
+Washington, DC, USA, August 2009; Available online: www.wilsoncenter.org (accessed on 15 July 2021).
+95. Yang, S. In Tougher Times, China Falls Back on Coal. Wall Street Journal, 23 December 2019.
+96. Shepherd, C.; Zhou, E.; Manson, K. Climate Change: China’s Coal Addiction Clashes with Xi’s Bold Promise. Financial Times, 3
+November 2020.
+97. Zhang, L.; Qin, Q. China’s New Energy Vehicle Policies: Evolution, Comparison and Recommendations. Transp. Res. Part A
+Policy Pract. 2018, 110, 57–72. [CrossRef]
+98. Edelstein, S. Electric Cars: China Extends EV Subsidies Beyond 2015. Christian Science Monitor, 13 February 2014.
+99. Li, S. Better Lucky than Rich? Welfare Analysis of Automobile License Allocations in Beijing and Shanghai. Rev. Econ. Studies
+2018, 85, 2389–2428. [CrossRef]
+100. Danilovic, M.; Liu, J.L. Exploring Battery-Swapping For Electric Vehicles in China 1.0. Sweden-China Bridge Newsletter. Issue
+#2. April 2021. Available online: https://ju.se/center/mmtc/about-us/news-and-announcements/sticky-news/2021-04-14
+-research-project-sweden-china-bridge.html (accessed on 15 July 2021).
+101. Hall, D.; Cui, H.; Lutsey, N. Electric Vehicle Capitals of the World: What Markets Are Leading the Transition to Electric? ICCT
+Briefing. November 2017. Available online: https://theicct.org/publications/EV-capitals-of-the-world-2017 (accessed on 1
+June 2020).
+102. Bloomberg. China Raises 2025 Sales Target to Galvanize Industry. Energy and Environment News, 4 December 2019.
+Future Transp. 2021, 1 325
+103. Ou, S.; Hao, X.; Lin, Z.; Wang, H.; Bouchard, J.; He, X.; Przesmitzki, S.; Wu, Z.; Zheng, J.; Lv, R.; et al. Light-Duty Plug-In
+Electric Vehciles in China: An Overview on the Market and Its Comparisons to the US. Renew. Sustain. Energy Rev. 2019, 112, 757.
+[CrossRef]
+104. Canalys. Electric Vehicle Outlook: 2021 and Beyond. 11 July 2021. Available online: canalys.com (accessed on 15 July 2021).
+105. Cui, H. China Announced 2020–2022 Subsidies for New Energy Vehicles. Policy Update. ICCT. July 2020. Available online:
+https://theicct.org/publications/china-2020-22-subsidies-new-energy-vehicles-jul2020 (accessed on 15 July 2021).
+106. Hart, M.; Bassett, L.; Johnson, B. Research Note on US and Chinese Coal-Fired Power Data; Center for American Progress: Washington,
+DC, USA, 2017.
+107. Kurani, K.S.; Hardman, S. Automakers and Policymakers May Be on a Path to Electric Vehicles, Consumers Aren’t; Institute for
+Transportation Studies, University of California-Davis: Davis, CA, USA, 2017. Available online: www.ucits.org (accessed on 15
+July 2021).
+108. Mark Kane. In 2019, the Japanese Plug-In Electric Vehicle Market Declined Again. 23 January 2020. Available online: insideevs.
+com (accessed on 1 June 2021).
