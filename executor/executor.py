@@ -4,7 +4,6 @@ import argparse
 from utils.log_utils import LoggerManager
 from processor.processor import DataProcessor
 from output.sentiment_plotter import SentimentPlotter
-from survey.survey_start import survey_init
 
 class SentimentAnalysisApp:
     def __init__(self, log_level=logging.INFO):
