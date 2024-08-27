@@ -1,12 +1,13 @@
 # e_cars_sentiments
 
-`e_cars_sentiments` is a Python package designed to analyze sentiments related to electric cars. It leverages text mining techniques to perform sentiment analysis on data scraped from online sources, such as news articles, blogs, and forums. The package supports multiple languages, including English, German, Chinese, and Norwegian.
+`e_cars_sentiments` is a Python package designed to analyze sentiments related to electric cars. It leverages text mining techniques to perform sentiment analysis on data scraped from online sources, such as news articles, blogs, forums and survey responses. The package supports multiple languages, including English, German, Chinese, and Norwegian.
 
 ## Features
 
 - **Data Scraping**: Collect text data from public websites and online sources using a URL or a list of URLs specified in a configuration file.
 - **Text Preprocessing**: Clean and preprocess text data using Jieba for Chinese text segmentation and NLTK for stopword removal and tokenization.
 - **Sentiment Analysis**: Analyze text for sentiments related to electric cars, identifying positive, negative, and neutral factors.
+- **Survey Analysis**: Analyze sentiment from survey responses, classifying questions and responses into positive, negative, and neutral sentiments. Visualize the  overall sentiment distribution with pie charts.
 - **Visualization**: Generate visualizations, including pie charts, to represent sentiment analysis results.
 - **Multilingual Support**: Analyze sentiment in multiple languages, including English, German, Chinese, and Norwegian.
 
@@ -41,12 +42,16 @@ python -m executor.executor --mode=file --language=EN
 
 ### Command-Line Arguments
 
-- `--mode`: Specify the mode of data input. Use `url` to scrape data from the web or `file` to analyze text from a local file.
+- `--mode`: Specify the mode of data input. Use url to scrape data from the web, file to analyze text from a local file, survey to analyze survey responses, or all to run all modes.
 - `--language`: Specify the language code (`EN`, `DE`, `CN`, `NO`) for the sentiment analysis.
 
 ### Data Sources
 
-For URL mode, the program will scrape data from a list of URLs specified in the `config.ini` file for the selected language. This file contains positive, negative, and neutral keywords, along with URLs to public online sources for each language.
+- **URL Mode**
+The program will scrape data from a list of URLs specified in the `config.ini` file for the selected language. This file contains positive, negative, and neutral keywords, along with URLs to public online sources for each language.
+
+- **Survey Mode** (To do read from database)
+The program reads survey responses and associated question texts from the `survey.ini` file. It then analyzes the sentiment of each question and response, classifying them as positive, negative, or neutral. Results are visualized in aggregated pie charts.
 
 ## Challenges
 

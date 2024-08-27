@@ -129,3 +129,36 @@ class SentimentPlotter:
         # Show the plots
         plt.tight_layout()
         plt.show()
+        
+    @staticmethod
+    def plot_survey_sentiment_summary(sentiment_summary):
+        """
+        Plots the aggregated survey sentiment summary as a single pie chart.
+
+        Args:
+            sentiment_summary (pd.DataFrame): A DataFrame containing the sentiment counts for each survey question.
+        """
+        # Sum the sentiment counts across all questions to get the overall sentiment summary
+        aggregated_sentiments = sentiment_summary.sum(axis=1)
+
+        # Define the color mapping for sentiments
+        color_map = {
+            1: 'green',    # Positive
+            -1: 'red',     # Negative
+            0: 'blue'      # Neutral
+        }
+
+        # Prepare the data for the pie chart
+        sizes = aggregated_sentiments.values
+        labels = ['Positive', 'Negative', 'Neutral']
+
+        # Ensure the colors match the labels order
+        colors = [color_map[1], color_map[-1], color_map[0]]
+
+        # Create the pie chart
+        fig, ax = plt.subplots(figsize=(8, 8))
+        ax.pie(sizes, labels=labels, autopct='%1.1f%%', colors=colors)
+        ax.set_title('Survey Sentiment Analysis')
+
+        # Show the plot
+        plt.show()
