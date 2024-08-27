@@ -62,6 +62,16 @@ The program reads survey responses and associated question texts from the `surve
 - **Review Data**: Collecting reviews from sources like Yelp or Google requires saving them in text files for processing due to potential scraping limitations.
 - **Survey Data**: Processing survey data can be done using a weighted scoring system and representing it as a matrix (0,1) with respondents and possible answers. These can then be compared for sentiment trends.
 
+    | Question Sentiment | Response Sentiment | Classified Sentiment  |
+    |--------------------|--------------------|------------------------|
+    | Positive           | Positive           | Positive               |
+    | Positive           | Negative           | Negative               |
+    | Negative           | Negative           | Positive               |
+    | Negative           | Positive           | Negative               |
+    | Neutral            | Neutral            | Neutral                |
+
+
+
 ### Data Analysis
 
 - **Predicting E-Car Adoption/Sales**: Identify key variables that affect electric car adoption and sales. Neural networks, such as LSTM and BiLSTM, can be used for prediction.
