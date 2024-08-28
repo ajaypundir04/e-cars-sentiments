@@ -2,11 +2,14 @@ import ast
 import configparser
 import logging
 import argparse
+import numpy as np
 import pandas as pd
+from prediction.ml_prediction import ECarSentimentPrediction
 from utils.log_utils import LoggerManager
 from processor.processor import DataProcessor
 from output.sentiment_plotter import SentimentPlotter
 from processor.survey_analyser import SurveyAnalyser
+from utils.utils import Utils
 
 class SentimentAnalysisApp:
     def __init__(self, log_level=logging.INFO):
@@ -14,6 +17,8 @@ class SentimentAnalysisApp:
         logger_manager = LoggerManager(log_level)
         self.logger = logger_manager.get_logger(self.__class__.__name__)
         self.data_processor = DataProcessor(log_level)
+        self.ml_prediction = ECarSentimentPrediction()
+
 
     def get_keywords(self, language):
         # Initialize the parser
@@ -105,7 +110,8 @@ class SentimentAnalysisApp:
             aggregated_positive_factors, aggregated_negative_factors, 
             aggregated_neutral_factors, "Sentiment Analysis with Web Crawler"
         )
-    
+        return aggregated_positive_factors, aggregated_negative_factors, aggregated_neutral_factors
+
     def process_from_file(self, file_paths, keyword, language):
         """
         Process and aggregate sentiment analysis data from files.
@@ -123,6 +129,8 @@ class SentimentAnalysisApp:
             aggregated_positive_factors, aggregated_negative_factors, 
             aggregated_neutral_factors, "Sentiment Analysis with Files"
         )
+        return aggregated_positive_factors, aggregated_negative_factors, aggregated_neutral_factors
+
 
     def process_survey(self, language):
         """
@@ -155,25 +163,58 @@ class SentimentAnalysisApp:
 
         # Plot the survey sentiment summary
         SentimentPlotter.plot_survey_sentiment_summary(analysis_results["sentiment_summary"])
+        return analysis_results["sentiment_matrix"]
+
+
 
     def run(self, language, keyword):
         """
         Run sentiment analysis in all modes: URL, File, and Survey.
         """
+        all_positive_factors, all_negative_factors, all_neutral_factors = [], [], []
+
         # Run the URL mode
         self.logger.info("Running sentiment analysis from URLs...")
-        self.process_from_url(language, keyword)
+        pos_factors, neg_factors, neu_factors = self.process_from_url(language, keyword)
+        all_positive_factors.extend(pos_factors)
+        all_negative_factors.extend(neg_factors)
+        all_neutral_factors.extend(neu_factors)
         
         # Define file paths
-        file_paths = ['stats/ev_china.md','stats/ev_germany.md','stats/ev_norway.md','stats/hybrid_germany.md', 'stats/stats.md']
+        file_paths = ['stats/ev_china.md', 'stats/ev_germany.md', 'stats/ev_norway.md', 'stats/hybrid_germany.md', 'stats/stats.md']
 
         # Run the File mode
         self.logger.info("Running sentiment analysis from files...")
-        self.process_from_file(file_paths, keyword, language)
+        pos_factors, neg_factors, neu_factors = self.process_from_file(file_paths, keyword, language)
+        all_positive_factors.extend(pos_factors)
+        all_negative_factors.extend(neg_factors)
+        all_neutral_factors.extend(neu_factors)
 
         # Run Survey analysis
         self.logger.info("Running sentiment analysis from survey responses...")
-        self.process_survey(language)
+        
+        # Process the survey data and get the sentiment matrix
+        sentiment_matrix = self.process_survey(language)
+
+        # Aggregate the sentiment counts from the matrix
+        survey_pos_count, survey_neg_count, survey_neu_count = Utils.aggregate_matrix_sentiments(sentiment_matrix)
+
+        # Aggregate all the sentiments (URL, File, Survey)
+        agg_pos_factors = len(all_positive_factors) + survey_pos_count
+        agg_neg_factors = len(all_negative_factors) + survey_neg_count
+        agg_neu_factors = len(all_neutral_factors) + survey_neu_count
+
+        # Prepare data and run the ML model
+        sentiment_data = pd.DataFrame({
+            'positive_count': [agg_pos_factors],
+            'negative_count': [agg_neg_factors],
+            'neutral_count': [agg_neu_factors],
+            'future_sales': [np.random.randint(0, 100)]  # Replace this with actual target variable if available
+        })
+        
+        X, y = self.ml_prediction.prepare_data(sentiment_data)        
+        predictions = self.ml_prediction.run(X,y)
+        SentimentPlotter.plot_predictions(predictions)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Run Sentiment Analysis on URLs, Files, and Surveys.")

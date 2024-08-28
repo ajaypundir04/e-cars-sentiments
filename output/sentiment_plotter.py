@@ -162,3 +162,32 @@ class SentimentPlotter:
 
         # Show the plot
         plt.show()
+
+    @staticmethod
+    def plot_predictions(predictions):
+        """
+        Plots the model predictions as a bar chart.
+
+        Args:
+            predictions (dict): A dictionary containing model names as keys and their predictions as values.
+        """
+        # Prepare the data for plotting
+        model_names = list(predictions.keys())
+        prediction_values = [predictions[model] for model in model_names]
+
+        # Create the bar chart
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.barh(model_names, prediction_values, color='skyblue')
+
+        # Set titles and labels
+        ax.set_title('Model Predictions')
+        ax.set_xlabel('Predicted Value')
+        ax.set_ylabel('Model')
+
+        # Add value labels to each bar
+        for i, v in enumerate(prediction_values):
+            ax.text(v + 0.2, i, str(round(v, 2)), color='blue', va='center')
+
+        # Show the plot
+        plt.tight_layout()
+        plt.show()

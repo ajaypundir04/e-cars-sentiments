@@ -3,13 +3,17 @@ from bs4 import BeautifulSoup
 import jieba
 import nltk
 from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+from nltk.stem import PorterStemmer, WordNetLemmatizer
 from textblob import TextBlob
 from urllib.parse import urljoin
 import logging
 from utils.log_utils import LoggerManager
 
-# Ensure NLTK stopwords are downloaded
+# Ensure NLTK resources are downloaded
 nltk.download('stopwords', quiet=True)
+nltk.download('punkt', quiet=True)
+nltk.download('wordnet', quiet=True)
 
 # Initialize the Jieba tokenizer
 jieba.initialize()
@@ -19,19 +23,23 @@ class Utils:
     logger = LoggerManager(logging.INFO).get_logger(__name__)
 
     @staticmethod
-    def preprocess_texts(posts, language='english'):
+    def preprocess_texts(posts, language='english', use_stemming=False, use_lemmatization=True):
         """
         Preprocess the text data by performing tokenization, removing stopwords,
-        converting text to lowercase, and joining words back into sentences.
+        converting text to lowercase, and optionally applying stemming or lemmatization.
 
         Args:
             posts (list): A list of text posts to preprocess.
             language (str): The language of the text (e.g., 'english', 'german', 'chinese').
+            use_stemming (bool): Whether to apply stemming to the tokens.
+            use_lemmatization (bool): Whether to apply lemmatization to the tokens.
 
         Returns:
             list: A list of cleaned text posts.
         """
         stop_words = set(stopwords.words(language)) if language in stopwords.fileids() else set()
+        stemmer = PorterStemmer()
+        lemmatizer = WordNetLemmatizer()
 
         cleaned_posts = []
 
@@ -44,11 +52,17 @@ class Utils:
                 tokens = jieba.cut(post)
             else:
                 # Split into words for other languages
-                tokens = post.split()
+                tokens = word_tokenize(post)
 
             # Remove stopwords
             cleaned_tokens = [word for word in tokens if word not in stop_words]
-            
+
+            # Apply stemming or lemmatization if specified
+            if use_stemming:
+                cleaned_tokens = [stemmer.stem(word) for word in cleaned_tokens]
+            elif use_lemmatization:
+                cleaned_tokens = [lemmatizer.lemmatize(word) for word in cleaned_tokens]
+
             # Join tokens back into a cleaned sentence
             cleaned_post = ' '.join(cleaned_tokens)
             cleaned_posts.append(cleaned_post)
@@ -197,3 +211,20 @@ class Utils:
         except FileNotFoundError:
             Utils.logger.error(f"Failed to open file: {file_path}")
             return []
+
+    @staticmethod
+    def aggregate_matrix_sentiments(sentiment_matrix):
+        """
+        Aggregate sentiment counts from a sentiment matrix.
+
+        Args:
+            sentiment_matrix (pd.DataFrame): DataFrame containing sentiment classifications for each survey response.
+
+        Returns:
+            tuple: Aggregated counts of positive, negative, and neutral sentiments.
+        """
+        positive_count = (sentiment_matrix == 1).sum().sum()
+        negative_count = (sentiment_matrix == -1).sum().sum()
+        neutral_count = (sentiment_matrix == 0).sum().sum()
+
+        return positive_count, negative_count, neutral_count
