@@ -9,6 +9,8 @@ from textblob import TextBlob
 from urllib.parse import urljoin
 import logging
 from utils.log_utils import LoggerManager
+import csv
+
 
 # Ensure NLTK resources are downloaded
 nltk.download('stopwords', quiet=True)
@@ -186,28 +188,38 @@ class Utils:
         return all_posts
 
     @staticmethod
-    def scrape_data_from_file(file_path):
+    def scrape_data_from_file(file_path, column_name='Review_Text'):
         """
-        Reads data from a .md or .txt file and processes it into a list of text elements.
+        Reads data from a .md, .txt, or .csv file and processes it into a list of text elements.
         
         Args:
-            file_path (str): The path to the .md or .txt file.
+            file_path (str): The path to the .md, .txt, or .csv file.
+            column_name (str): The name of the column to extract data from if the file is a CSV.
 
         Returns:
             list: A list of text elements from the file.
         """
         try:
-            with open(file_path, 'r', encoding='utf-8') as file:
-                content = file.read()
-            
-            if file_path.endswith('.md'):
-                elements = content.split('\n\n')  # Splitting by double newlines for paragraphs
-            elif file_path.endswith('.txt'):
-                elements = content.splitlines()  # Splitting by lines
+            if file_path.endswith('.csv'):
+                elements = []
+                with open(file_path, 'r', encoding='utf-8') as csvfile:
+                    reader = csv.DictReader(csvfile)
+                    for row in reader:
+                        if column_name in row:
+                            elements.append(row[column_name].strip())
+                return elements
+            else:
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    content = file.read()
+                
+                if file_path.endswith('.md'):
+                    elements = content.split('\n\n')  # Splitting by double newlines for paragraphs
+                elif file_path.endswith('.txt'):
+                    elements = content.splitlines()  # Splitting by lines
 
-            elements = [element.strip() for element in elements if element.strip()]
-            return elements
-        
+                elements = [element.strip() for element in elements if element.strip()]
+                return elements
+            
         except FileNotFoundError:
             Utils.logger.error(f"Failed to open file: {file_path}")
             return []

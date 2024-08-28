@@ -181,7 +181,7 @@ class SentimentAnalysisApp:
         all_neutral_factors.extend(neu_factors)
         
         # Define file paths
-        file_paths = ['stats/ev_china.md', 'stats/ev_germany.md', 'stats/ev_norway.md', 'stats/hybrid_germany.md', 'stats/stats.md']
+        file_paths = ['stats/ev_china.md', 'stats/ev_germany.md', 'stats/ev_norway.md', 'stats/hybrid_germany.md', 'stats/stats.md', 'stats/reviews.csv']
 
         # Run the File mode
         self.logger.info("Running sentiment analysis from files...")
@@ -233,7 +233,7 @@ if __name__ == '__main__':
     if args.mode == 'url':
         app.process_from_url(args.language, args.keyword)
     elif args.mode == 'file':
-        file_paths = ['stats/ev_china.md','stats/ev_germany.md','stats/ev_norway.md','stats/hybrid_germany.md', 'stats/stats.md']
+        file_paths = ['stats/ev_china.md','stats/ev_germany.md','stats/ev_norway.md','stats/hybrid_germany.md', 'stats/stats.md', 'stats/reviews.csv']
         app.process_from_file(file_paths, args.keyword, args.language)
     elif args.mode == 'survey':
         app.process_survey(args.language)
