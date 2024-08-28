@@ -74,7 +74,7 @@ The program reads survey responses and associated question texts from the `surve
 
 ### Data Analysis
 
-- **Predicting E-Car Adoption/Sales**: Identify key variables that affect electric car adoption and sales. Neural networks, such as LSTM and BiLSTM, can be used for prediction.
+- **Predicting E-Car Adoption/Sales**: We predict electric car adoption and sales by analyzing sentiment data using a variety of machine learning models, including Linear Regression, KNN, Random Forest, and advanced neural networks like LSTM and Transformer models. These models utilize sentiment factors such as positive, negative, and neutral mentions to predict future sales trends, helping to identify key influences on consumer behavior.
 
 - **Comparative Sentiment Analysis**: To compare sentiments across different regions (Norway, Germany, EU), deep learning models like LSTM and transformer-based models like BERT can be utilized. These models capture the sequence and context of text, helping to identify key deciding factors by analyzing sentiment patterns and focusing on important text elements.
 

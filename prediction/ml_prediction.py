@@ -1,103 +1,170 @@
+import logging
 import numpy as np
-import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
-from processor.processor import DataProcessor  
-from utils.utils import Utils  
-import logging
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.ensemble import RandomForestRegressor
+from keras.models import Sequential
+from keras.layers import LSTM, Dense, LayerNormalization, MultiHeadAttention, Input, Dropout
+from keras import Model
 from utils.log_utils import LoggerManager
 
-class MLPredcition:
-    def __init__(self, log_level=logging.INFO):
+class ECarSentimentPrediction:
+    def __init__(self, model_type='all', log_level=logging.INFO):
+        """
+        Initialize the ECarSentimentPrediction class with specified model type and logger.
+        Args:
+            model_type (str): The type of model to use ('linear_regression', 'knn', 'random_forest', 'lstm', 'transformer', or 'all').
+            log_level (int): Logging level.
+        """
         # Initialize the logger
         logger_manager = LoggerManager(log_level)
         self.logger = logger_manager.get_logger(self.__class__.__name__)
-        self.data_processor = DataProcessor(log_level)
 
-    def process_and_prepare_data_for_ml(self, sources, process_function, keyword, key_word_map):
+        # Initialize models
+        self.linear_reg = LinearRegression()
+        self.knn = KNeighborsRegressor()
+        self.random_forest = RandomForestRegressor()
+        self.lstm = None
+        self.transformer = None
+        self.model_type = model_type
+        self.logger.info(f"Initialized with model type: {self.model_type}")
+
+    def prepare_data(self, sentiment_data):
         """
-        Process and aggregate sentiment data, preparing it for machine learning.
-        
+        Prepare sentiment data for model training.
         Args:
-            sources (list): List of URLs or file paths to process.
-            process_function (function): Function to process each source.
-            keyword (str): The keyword for filtering or highlighting.
-            key_word_map (dict): Dictionary containing language and sentiment keywords for analysis.
-
+            sentiment_data (DataFrame): Sentiment scores with corresponding target variables.
         Returns:
-            DataFrame: A pandas DataFrame containing the processed sentiment features.
+            X (DataFrame): Features.
+            y (Series): Target variable.
         """
-        sentiment_words, sentiment_text, positive_factors, negative_factors, neutral_factors = process_function(
-            sources, keyword, key_word_map
-        )
-        
-        # Ensure all lists have the same length
-        min_len = min(len(sentiment_words), len(sentiment_text), len(positive_factors), len(negative_factors), len(neutral_factors))
-        
-        sentiment_words = sentiment_words[:min_len]
-        positive_factors = positive_factors[:min_len]
-        negative_factors = negative_factors[:min_len]
-        neutral_factors = neutral_factors[:min_len]
+        X = sentiment_data[['positive_count', 'negative_count', 'neutral_count']]
+        y = sentiment_data['future_sales']
+        self.logger.info("Data prepared for model training.")
+        return X, y
 
-        # Prepare features
-        data = {
-            'positive_count': [len(p) for p in positive_factors],
-            'negative_count': [len(n) for n in negative_factors],
-            'neutral_count': [len(n) for n in neutral_factors],
-            'sentiment_score': [1 if w == 'Positive' else (-1 if w == 'Negative' else 0) for w in sentiment_words]
+    def train_linear_regression(self, X, y):
+        self.linear_reg.fit(X, y)
+        self.logger.info("Trained Linear Regression model.")
+
+    def train_knn(self, X, y, n_neighbors=5):
+        if len(X) < n_neighbors:
+            n_neighbors = len(X)
+            self.logger.warning(f"Not enough samples for KNN with n_neighbors={n_neighbors}. Using n_neighbors={n_neighbors} instead.")
+        
+        self.knn.set_params(n_neighbors=n_neighbors)
+        self.knn.fit(X, y)
+        self.logger.info(f"Trained KNN model with n_neighbors={n_neighbors}.")
+
+    def train_random_forest(self, X, y):
+        self.random_forest.fit(X, y)
+        self.logger.info("Trained Random Forest model.")
+
+    def train_lstm(self, X, y, input_shape):
+        """
+        Train an LSTM model.
+        Args:
+            X (DataFrame): Feature data.
+            y (Series): Target data.
+            input_shape (tuple): Input shape required for LSTM.
+        """
+        # Convert X to a NumPy array and reshape it for LSTM
+        X = X.values.reshape((X.shape[0], X.shape[1], 1))
+        
+        # Reshape y to be a 2D array (required by Keras)
+        y = y.values.reshape(-1, 1)
+
+        self.lstm = Sequential()
+        self.lstm.add(LSTM(units=50, return_sequences=True, input_shape=input_shape))
+        self.lstm.add(LSTM(units=50))
+        self.lstm.add(Dense(1))
+        self.lstm.compile(optimizer='adam', loss='mean_squared_error')
+        self.lstm.fit(X, y, epochs=50, batch_size=32)
+
+    def train_transformer(self, X, y, input_shape):
+        """
+        Train a Transformer-based model.
+        Args:
+            X (DataFrame): Feature data.
+            y (Series): Target data.
+            input_shape (tuple): Input shape required for Transformer.
+        """
+        X = X.values.reshape((X.shape[0], X.shape[1], 1))
+        y = y.values.reshape(-1, 1)
+
+        inputs = Input(shape=input_shape)
+        x = MultiHeadAttention(num_heads=2, key_dim=64)(inputs, inputs)
+        x = LayerNormalization(epsilon=1e-6)(x)
+        x = Dense(64, activation='relu')(x)
+        x = Dropout(0.1)(x)
+        x = Dense(1)(x)
+
+        self.transformer = Model(inputs, x)
+        self.transformer.compile(optimizer='adam', loss='mean_squared_error')
+        self.transformer.fit(X, y, epochs=50, batch_size=32)
+
+    def train_all_models(self, X, y):
+        """
+        Train all models (Linear Regression, KNN, Random Forest, LSTM, Transformer).
+        """
+        self.train_linear_regression(X, y)
+        self.train_knn(X, y)
+        self.train_random_forest(X, y)
+        input_shape = (X.shape[1], 1)
+        self.train_lstm(X, y, input_shape)
+        self.train_transformer(X, y, input_shape)
+
+    def predict_future(self, model, X):
+        self.logger.info(f"Predicting future using {model} model.")
+        if model == 'linear_regression':
+            return self.linear_reg.predict(X)
+        elif model == 'knn':
+            return self.knn.predict(X)
+        elif model == 'random_forest':
+            return self.random_forest.predict(X)
+        elif model == 'lstm':
+            X = X.values  # Convert DataFrame to NumPy array
+            X = X.reshape((X.shape[0], X.shape[1], 1))  # Reshape for LSTM
+            return self.lstm.predict(X)
+        elif model == 'transformer':
+            X = X.values  # Convert DataFrame to NumPy array
+            X = X.reshape((X.shape[0], X.shape[1], 1))  # Reshape for Transformer
+            return self.transformer.predict(X)
+
+    def run(self, X, y):
+        """
+        Run the training and prediction based on the selected model type.
+        """
+        if self.model_type == 'linear_regression':
+            self.train_linear_regression(X, y)
+        elif self.model_type == 'knn':
+            self.train_knn(X, y)
+        elif self.model_type == 'random_forest':
+            self.train_random_forest(X, y)
+        elif self.model_type == 'lstm':
+            input_shape = (X.shape[1], 1)
+            self.train_lstm(X, y, input_shape)
+        elif self.model_type == 'transformer':
+            input_shape = (X.shape[1], 1)
+            self.train_transformer(X, y, input_shape)
+        elif self.model_type == 'all':
+            self.train_all_models(X, y)
+
+        predictions = {}
+        for model in ['linear_regression', 'knn', 'random_forest', 'lstm', 'transformer']:
+            predictions[model] = self.predict_future(model, X)
+
+        # Convert predictions to a readable format
+        readable_predictions = {
+            'Linear Regression Prediction': round(float(predictions['linear_regression'][0]), 2),
+            'K-Nearest Neighbors Prediction': round(float(predictions['knn'][0]), 2),
+            'Random Forest Prediction': round(float(predictions['random_forest'][0]), 2),
+            'LSTM Prediction': round(float(predictions['lstm'][0][0]), 2),  # Access the first element in the LSTM output
+            'Transformer Prediction': round(float(predictions['transformer'][0][0]), 2)  # Access the first element in the Transformer output
         }
-        
-        df = pd.DataFrame(data)
-        return df
 
-    def predict_future_sales(self, sources, key_word_map, keyword='cars'):
-        """
-        Predict future sales based on sentiment analysis of sources.
+        readable_output = "\n".join([f"{model}: {value}" for model, value in readable_predictions.items()])
+        self.logger.info(f"Predictions:\n{readable_output}")
 
-        Args:
-            sources (list): List of URLs or file paths to process.
-            key_word_map (dict): Dictionary containing language and sentiment keywords for analysis.
-            keyword (str): The keyword for filtering or highlighting. Default is 'cars'.
-
-        Returns:
-            float: The predicted future sales value.
-        """
-        # Step 2: Prepare data for ML
-        df = self.process_and_prepare_data_for_ml(sources, self.data_processor.process_data_with_url_keyword_from_multi_file, keyword, key_word_map)
-
-        # Assuming we have a target variable, e.g., future sales
-        # For this example, let's create a dummy target variable
-        df['future_sales'] = np.random.randint(100, 200, size=len(df))
-
-        # Step 3: Train the machine learning model
-        X = df[['positive_count', 'negative_count', 'neutral_count', 'sentiment_score']]
-        y = df['future_sales']
-
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-        model = LinearRegression()
-        model.fit(X_train, y_train)
-
-        # Step 4: Evaluate the model
-        y_pred = model.predict(X_test)
-        mse = mean_squared_error(y_test, y_pred)
-        self.logger.info(f"Mean Squared Error: {mse}")
-
-        # Make a prediction for the future
-        future_sentiment_data = pd.DataFrame({
-            'positive_count': [10],  # Example values; these should be based on actual future sentiment analysis
-            'negative_count': [3],
-            'neutral_count': [5],
-            'sentiment_score': [1]
-        })
-
-        future_sales_prediction = model.predict(future_sentiment_data)
-        return future_sales_prediction[0]
-
-# Example usage:
-# sources = ['path/to/file1.md', 'path/to/file2.md']
-# key_word_map = {'language': 'english', 'positive': ['good'], 'neutral': ['ok'], 'negative': ['bad']}
-# ml_processor = MachineLearningProcessor()
-# predicted_sales = ml_processor.predict_future_sales(sources, key_word_map)
-# print(f"Predicted Future Sales: {predicted_sales}")
+        return readable_predictions

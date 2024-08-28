@@ -8,4 +8,4 @@ scikit-learn
 matplotlib
 configparser
 wordcloud
-selenium
+keras
