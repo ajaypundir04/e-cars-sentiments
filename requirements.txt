@@ -9,3 +9,5 @@ matplotlib
 configparser
 wordcloud
 keras
+transformers
+torch

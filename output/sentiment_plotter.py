@@ -191,3 +191,35 @@ class SentimentPlotter:
         # Show the plot
         plt.tight_layout()
         plt.show()
+
+    @staticmethod
+    def plot_transformer_sentiment_summary(positive_count, negative_count, neutral_count):
+        """
+        Plots the sentiment summary from the transformer model as a pie chart.
+
+        Args:
+            positive_count (int): The number of positive sentiments.
+            negative_count (int): The number of negative sentiments.
+            neutral_count (int): The number of neutral sentiments.
+        """
+        # Define the color mapping for sentiments
+        color_map = {
+            'Positive': 'green',    # Positive
+            'Negative': 'red',      # Negative
+            'Neutral': 'blue'       # Neutral
+        }
+
+        # Prepare the data for the pie chart
+        sizes = [positive_count, negative_count, neutral_count]
+        labels = ['Positive', 'Negative', 'Neutral']
+
+        # Ensure the colors match the labels order
+        colors = [color_map[label] for label in labels]
+
+        # Create the pie chart
+        fig, ax = plt.subplots(figsize=(8, 8))
+        ax.pie(sizes, labels=labels, autopct='%1.1f%%', colors=colors)
+        ax.set_title('Transformer Sentiment Analysis')
+
+        # Show the plot
+        plt.show()        

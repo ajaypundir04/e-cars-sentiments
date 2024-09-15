@@ -29,7 +29,7 @@ class ECarSentimentPrediction:
         self.transformer = None
         self.model_type = model_type
         self.logger.info(f"Initialized with model type: {self.model_type}")
-
+    
     def prepare_data(self, sentiment_data):
         """
         Prepare sentiment data for model training.
