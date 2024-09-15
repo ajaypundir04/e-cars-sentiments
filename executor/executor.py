@@ -5,6 +5,7 @@ import argparse
 import numpy as np
 import pandas as pd
 from prediction.ml_prediction import ECarSentimentPrediction
+from processor.transformer_analyser import TransformerSentimentAnalyzer
 from utils.log_utils import LoggerManager
 from processor.processor import DataProcessor
 from output.sentiment_plotter import SentimentPlotter
@@ -18,6 +19,7 @@ class SentimentAnalysisApp:
         self.logger = logger_manager.get_logger(self.__class__.__name__)
         self.data_processor = DataProcessor(log_level)
         self.ml_prediction = ECarSentimentPrediction()
+        self.transformer_analyzer = TransformerSentimentAnalyzer()
 
 
     def get_keywords(self, language):
@@ -216,11 +218,50 @@ class SentimentAnalysisApp:
         predictions = self.ml_prediction.run(X,y)
         SentimentPlotter.plot_predictions(predictions)
 
+    def process_transformer(self, language, keyword):
+        """
+        Process and perform sentiment analysis using Transformer model.
+        """
+        key_word_map = self.get_keywords(language)
+
+        # Get the URLs from the keyword map
+        urls = key_word_map['urls']
+
+        # Process and aggregate data from URLs
+        _, aggregated_sentiment_text, _, _, _ = self.data_processor.process_and_aggregate_data(
+            urls, self.data_processor.process_data_with_url_keyword, keyword, key_word_map
+        )
+
+        # Preprocess the aggregated text based on the language
+        preprocessed_texts = self.transformer_analyzer.preprocess_texts(aggregated_sentiment_text, language)
+
+        # Perform sentiment analysis using Transformer on the preprocessed text
+        sentiments = self.transformer_analyzer.predict(preprocessed_texts)
+
+        # Count positive, negative, and neutral sentiments
+        positive_count = sentiments.count(1)
+        negative_count = sentiments.count(0)
+        neutral_count = len(sentiments) - positive_count - negative_count  # Assuming binary classification
+
+        # Log and return results
+        self.logger.info(f"Positive Sentiment Count: {positive_count}")
+        self.logger.info(f"Negative Sentiment Count: {negative_count}")
+        self.logger.info(f"Neutral Sentiment Count: {neutral_count}")
+
+        # Plotting the results using the new plot method
+        SentimentPlotter.plot_transformer_sentiment_summary(positive_count, negative_count, neutral_count)
+
+        return positive_count, negative_count, neutral_count
+
+
+
+
+
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Run Sentiment Analysis on URLs, Files, and Surveys.")
+    parser = argparse.ArgumentParser(description="Run Sentiment Analysis on URLs, Files, Surveys, and Transformer-based Analysis.")
     
-    parser.add_argument('--mode', type=str, choices=['url', 'file', 'survey', 'both', 'all'], default='all',
-                        help="Mode to run the analysis: 'url', 'file', 'survey', 'both', or 'all'. Default is 'all'.")
+    parser.add_argument('--mode', type=str, choices=['url', 'file', 'survey', 'transformer', 'both', 'all'], default='all',
+                        help="Mode to run the analysis: 'url', 'file', 'survey', 'transformer', 'both', or 'all'. Default is 'all'.")
     parser.add_argument('--language', type=str, required=True,
                         help="Language code to use for analysis, e.g., 'EN', 'DE'.")
     parser.add_argument('--keyword', type=str, default='cars',
@@ -237,5 +278,7 @@ if __name__ == '__main__':
         app.process_from_file(file_paths, args.keyword, args.language)
     elif args.mode == 'survey':
         app.process_survey(args.language)
+    elif args.mode == 'transformer':
+        app.process_transformer(args.language, args.keyword)
     else:
         app.run(args.language, args.keyword)

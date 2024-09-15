@@ -90,3 +90,7 @@ The program reads survey responses and associated question texts from the `surve
 - Building and training neural networks for predictive analytics in electric car adoption and market trends.
 
 
+### Distribution
+
+ - distribution (url, file, surveys)
+        
