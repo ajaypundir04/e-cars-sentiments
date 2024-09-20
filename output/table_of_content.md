@@ -3,7 +3,7 @@
 1. [Introduction](#introduction)
    - 1.1 [Background](#background)
    - 1.2 [Motivation](#motivation)
-   - 1.3 [Problem Statement](#problem-statement)
+   - 1.3 [Problem Statement/ Research Question](#problem-statement)
    - 1.4 [Objectives](#objectives)
 
 2. [Literature Review](#literature-review)
@@ -35,10 +35,8 @@
 5. [Discussion](#discussion)
    - 5.1 [Insights from Feature Selection](#insights-from-feature-selection)
    - 5.2 [Challenges and Limitations](#challenges-and-limitations)
-
-6. [Conclusion](#conclusion)
-   - 6.1 [Summary of Findings](#summary-of-findings)
-   - 6.2 [Future Work](#future-work)
+   - 5.3 [Summary of Findings](#summary-of-findings)
+   - 5.4 [Future Work](#future-work)
 
 7. [References](#references)
 
