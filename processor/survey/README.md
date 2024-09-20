@@ -84,11 +84,14 @@ Each survey question is presented with Likert scale response options, allowing u
 
 ---
 
-## How to Use the System
 
-### Installation
+### Running the Feature Extraction & Survey Generation:
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-repository/electric-vehicle-feature-analysis.git
-   cd electric-vehicle-feature-analysis
+```bash
+python -m executor.survey_creator --mode=file --language=EN --num_features=5
+
+```
+
+- `--mode`: `url` or `file` to specify the source of input data.
+- `--language`: The language code (e.g., `EN`, `DE`).
+- `--num_features`: The number of top features to extract for survey generation.
