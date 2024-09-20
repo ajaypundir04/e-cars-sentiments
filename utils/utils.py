@@ -8,9 +8,9 @@ from nltk.stem import PorterStemmer, WordNetLemmatizer
 from textblob import TextBlob
 from urllib.parse import urljoin
 import logging
-from utils.log_utils import LoggerManager
 import csv
-
+from transformers import AutoTokenizer, AutoModelForTokenClassification, pipeline
+from utils.log_utils import LoggerManager
 
 # Ensure NLTK resources are downloaded
 nltk.download('stopwords', quiet=True)
@@ -19,6 +19,12 @@ nltk.download('wordnet', quiet=True)
 
 # Initialize the Jieba tokenizer
 jieba.initialize()
+
+# Load Hugging Face NER model and tokenizer
+NER_MODEL_NAME = "dbmdz/bert-large-cased-finetuned-conll03-english"  # You can choose other models depending on language
+tokenizer = AutoTokenizer.from_pretrained(NER_MODEL_NAME)
+model = AutoModelForTokenClassification.from_pretrained(NER_MODEL_NAME)
+ner_pipeline = pipeline("ner", model=model, tokenizer=tokenizer)
 
 class Utils:
     # Initialize the logger for the entire class
@@ -53,7 +59,7 @@ class Utils:
                 # Tokenize using jieba for Chinese
                 tokens = jieba.cut(post)
             else:
-                # Split into words for other languages
+                # Tokenize using nltk for other languages
                 tokens = word_tokenize(post)
 
             # Remove stopwords
@@ -70,6 +76,30 @@ class Utils:
             cleaned_posts.append(cleaned_post)
 
         return cleaned_posts
+
+    @staticmethod
+    def extract_entities(text):
+        """
+        Extract named entities from the text using the Hugging Face transformers NER pipeline.
+
+        Args:
+            text (str): The text to process for entity extraction.
+
+        Returns:
+            dict: A dictionary of entities with their labels.
+        """
+        entities = ner_pipeline(text)
+        
+        entity_dict = {}
+        for entity in entities:
+            entity_text = entity['word']
+            entity_label = entity['entity']
+            entity_dict[entity_text] = entity_label
+        
+        if not entity_dict:
+            Utils.logger.info(f"No entities found in the text: {text}")
+        
+        return entity_dict
 
     @staticmethod
     def analyze_sentiment(text, positive, neutral, negative):
@@ -112,9 +142,82 @@ class Utils:
             return 0, 'Neutral', positive_factors, negative_factors, neutral_factors
 
     @staticmethod
-    def scrape_data_without_user(url, keyword, tag='div', class_name=None, attr_name=None):
+    def scrape_data_without_user(url, tag='div', class_name=None, attr_name=None):
+        search_url = f"{url}"
+        response = requests.get(search_url)
+        
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.text, 'html.parser')
+            if class_name:
+                elements = soup.find_all(tag, class_=class_name)
+            elif attr_name:
+                elements = soup.find_all(tag, attrs={attr_name: True})
+            else:
+                elements = soup.find_all(tag)
+            
+            posts = [element.get_text(strip=True) for element in elements]
+            return posts
+        else:
+            Utils.logger.error(f"Failed to retrieve data. Status code: {response.status_code}")
+            return []
+
+    @staticmethod
+    def scrape_data_from_file(file_path, column_name='Review_Text'):
         """
-        Scrapes data from a public website based on the provided URL, keyword, tag, and class/attribute.
+        Reads data from a .md, .txt, or .csv file and processes it into a list of text elements.
+        
+        Args:
+            file_path (str): The path to the .md, .txt, or .csv file.
+            column_name (str): The name of the column to extract data from if the file is a CSV.
+
+        Returns:
+            list: A list of text elements from the file.
+        """
+        try:
+            if file_path.endswith('.csv'):
+                elements = []
+                with open(file_path, 'r', encoding='utf-8') as csvfile:
+                    reader = csv.DictReader(csvfile)
+                    for row in reader:
+                        if column_name in row:
+                            elements.append(row[column_name].strip())
+                return elements
+            else:
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    content = file.read()
+                
+                if file_path.endswith('.md'):
+                    elements = content.split('\n\n')  # Splitting by double newlines for paragraphs
+                elif file_path.endswith('.txt'):
+                    elements = content.splitlines()  # Splitting by lines
+
+                elements = [element.strip() for element in elements if element.strip()]
+                return elements
+            
+        except FileNotFoundError:
+            Utils.logger.error(f"Failed to open file: {file_path}")
+            return []
+
+    @staticmethod
+    def aggregate_matrix_sentiments(sentiment_matrix):
+        """
+        Aggregate sentiment counts from a sentiment matrix.
+
+        Args:
+            sentiment_matrix (pd.DataFrame): DataFrame containing sentiment classifications for each survey response.
+
+        Returns:
+            tuple: Aggregated counts of positive, negative, and neutral sentiments.
+        """
+        positive_count = (sentiment_matrix == 1).sum().sum()
+        negative_count = (sentiment_matrix == -1).sum().sum()
+        neutral_count = (sentiment_matrix == 0).sum().sum()
+
+        return positive_count, negative_count, neutral_count
+    
+    @staticmethod
+    def scrape_data_without_user(url, tag='div', class_name=None, attr_name=None):
+        """
         """
         search_url = f"{url}"
         response = requests.get(search_url)
@@ -186,57 +289,3 @@ class Utils:
             urls_to_scrape = new_urls
 
         return all_posts
-
-    @staticmethod
-    def scrape_data_from_file(file_path, column_name='Review_Text'):
-        """
-        Reads data from a .md, .txt, or .csv file and processes it into a list of text elements.
-        
-        Args:
-            file_path (str): The path to the .md, .txt, or .csv file.
-            column_name (str): The name of the column to extract data from if the file is a CSV.
-
-        Returns:
-            list: A list of text elements from the file.
-        """
-        try:
-            if file_path.endswith('.csv'):
-                elements = []
-                with open(file_path, 'r', encoding='utf-8') as csvfile:
-                    reader = csv.DictReader(csvfile)
-                    for row in reader:
-                        if column_name in row:
-                            elements.append(row[column_name].strip())
-                return elements
-            else:
-                with open(file_path, 'r', encoding='utf-8') as file:
-                    content = file.read()
-                
-                if file_path.endswith('.md'):
-                    elements = content.split('\n\n')  # Splitting by double newlines for paragraphs
-                elif file_path.endswith('.txt'):
-                    elements = content.splitlines()  # Splitting by lines
-
-                elements = [element.strip() for element in elements if element.strip()]
-                return elements
-            
-        except FileNotFoundError:
-            Utils.logger.error(f"Failed to open file: {file_path}")
-            return []
-
-    @staticmethod
-    def aggregate_matrix_sentiments(sentiment_matrix):
-        """
-        Aggregate sentiment counts from a sentiment matrix.
-
-        Args:
-            sentiment_matrix (pd.DataFrame): DataFrame containing sentiment classifications for each survey response.
-
-        Returns:
-            tuple: Aggregated counts of positive, negative, and neutral sentiments.
-        """
-        positive_count = (sentiment_matrix == 1).sum().sum()
-        negative_count = (sentiment_matrix == -1).sum().sum()
-        neutral_count = (sentiment_matrix == 0).sum().sum()
-
-        return positive_count, negative_count, neutral_count
