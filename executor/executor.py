@@ -9,7 +9,7 @@ from processor.transformer_analyser import TransformerSentimentAnalyzer
 from utils.log_utils import LoggerManager
 from processor.processor import DataProcessor
 from output.sentiment_plotter import SentimentPlotter
-from processor.survey_analyser import SurveyAnalyser
+from processor.survey.survey_analyser import SurveyAnalyser
 from utils.utils import Utils
 
 class SentimentAnalysisApp:
