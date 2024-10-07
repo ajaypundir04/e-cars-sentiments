@@ -11,3 +11,4 @@ wordcloud
 keras
 transformers
 torch
+flair
