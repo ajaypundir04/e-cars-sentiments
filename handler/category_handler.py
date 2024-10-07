@@ -3,6 +3,7 @@ class CategoryHandler:
         """
         Initialize the feature categories with corresponding keywords.
         """
+        #50 categories
         self.categories = {
             'performance': ['speed', 'performance', 'efficiency', 'battery', 'power', 'range', 'acceleration'],
             'design': ['design', 'look', 'appearance', 'style', 'aesthetic', 'color', 'body', 'shape'],

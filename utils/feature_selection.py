@@ -7,8 +7,11 @@ from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from textblob import TextBlob
+
+import concurrent.futures
 from flair.models import SequenceTagger
 from flair.data import Sentence
+
 import logging
 from utils.log_utils import LoggerManager
 from urllib.parse import urljoin

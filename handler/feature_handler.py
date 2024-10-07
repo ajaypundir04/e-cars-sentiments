@@ -20,12 +20,15 @@ class FeatureHandler:
         ])
 
         # Improved domain-specific keywords to prioritize in feature extraction
+        # 250 words
         self.electric_car_keywords = set([
             'battery', 'range', 'charging', 'acceleration', 'EV', 'charging station',
             'fast charging', 'sustainability', 'eco-friendly', 'emissions', 'autonomous',
             'electric motor', 'lithium-ion', 'renewable energy', 'charging infrastructure',
             'smart grid', 'battery capacity', 'carbon footprint', 'regenerative braking',
-            'torque', 'powertrain', 'electric range', 'energy efficiency', 'mileage'
+            'torque', 'powertrain', 'electric range', 'energy efficiency', 'mileage', 'length', 
+            'weight','manufacturer'
+
         ])
 
         # Group similar terms into one feature to reduce redundancy
@@ -35,7 +38,8 @@ class FeatureHandler:
             'charging': ['charging time', 'charge speed'],
             'acceleration': ['torque', 'speed'],
             'sustainability': ['eco-friendly', 'green'],
-            'emissions': ['carbon footprint', 'pollution']
+            'emissions': ['carbon footprint', 'pollution'],
+            'goverment':['incentive','sponsor','premium']
         }
 
     def get_keywords(self, language):

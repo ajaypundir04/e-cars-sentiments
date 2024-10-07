@@ -33,12 +33,12 @@ class FeatureExtractor:
         self.logger.info(f"Extracted features (keywords) using TF-IDF: {features}")
 
         # Extract Named Entities
-        entities = [FeatureSelection.extract_entities(text) for text in cleaned_posts]
-        self.logger.info(f"Extracted named entities from the posts: {entities}")
+        #entities = [FeatureSelection.extract_entities(text) for text in cleaned_posts]
+        #self.logger.info(f"Extracted named entities from the posts: {entities}")
         
         return {
             "features": features,
-            "entities": entities
+         #   "entities": entities
         }
 
     def extract_features_from_file(self, file_path, key_word_map):
