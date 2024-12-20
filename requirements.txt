@@ -11,3 +11,10 @@ wordcloud
 keras
 transformers
 torch
+fairscale
+fire
+blobfile
+ollama
+langchain-ollama
+typing-extensions
+cast
