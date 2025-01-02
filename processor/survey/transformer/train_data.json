@@ -1,0 +1,14 @@
+{
+    "train_texts": [
+      "Electric vehicles are becoming more popular as battery technology improves.",
+      "The range of electric vehicles is increasing every year.",
+      "Governments around the world are offering incentives for EV purchases.",
+      "Fast charging stations are critical for the widespread adoption of electric cars.",
+      "EV market share is growing rapidly in Europe and China.",
+      "Battery capacity is one of the main concerns for potential EV buyers.",
+      "Electric trucks are expected to dominate the market in the near future.",
+      "Clean energy is an essential part of the EV industry's future growth."
+    ],
+    "train_labels": [2, 2, 3, 1, 4, 2, 1, 6]
+  }
+  
