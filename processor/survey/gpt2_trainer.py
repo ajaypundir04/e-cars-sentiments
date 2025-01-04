@@ -11,20 +11,20 @@ class GPT2Trainer:
         self.tokenizer.pad_token = self.tokenizer.eos_token  # Ensure padding uses EOS token
         self.model = None
 
-    def pretrain(self, dataset_name="wikitext", dataset_config="wikitext-103-raw-v1", num_epochs=3, batch_size=8):
+    def pretrain(self, dataset_name="wikitext", dataset_config="wikitext-103-raw-v1", num_epochs=1, batch_size=4):
         # Load and tokenize pretraining dataset
         pretrain_dataset = load_dataset(dataset_name, dataset_config)
 
         def tokenize_function(example):
             return self.tokenizer(
-                example["text"], truncation=True, padding="max_length", max_length=128
+                example["text"], truncation=True, padding="max_length", max_length=64  # Shorten max length for faster training
             )
 
         pretrain_dataset = pretrain_dataset.map(tokenize_function, batched=True, remove_columns=["text"])
 
         # Initialize GPT-2 model for pre-training
         config = GPT2Config(
-            vocab_size=self.tokenizer.vocab_size, n_positions=1024, n_embd=768, n_layer=12, n_head=12
+            vocab_size=self.tokenizer.vocab_size, n_positions=512, n_embd=768, n_layer=6, n_head=8  # Use a smaller model configuration
         )
         self.model = GPT2LMHeadModel(config)
 
@@ -34,12 +34,15 @@ class GPT2Trainer:
             overwrite_output_dir=True,
             num_train_epochs=num_epochs,
             per_device_train_batch_size=batch_size,
-            save_steps=10_000,
+            save_steps=2_000,  # Reduce save frequency
             save_total_limit=2,
             learning_rate=5e-4,
             evaluation_strategy="steps",
-            logging_dir="./logs_pretrain",
+            logging_dir=None,  # Disable logging
             logging_steps=500,
+            report_to=None,  # Disable reporting to W&B
+            fp16=True,  # Use mixed-precision training
+            gradient_accumulation_steps=2  # Accumulate gradients over 2 steps to simulate a larger batch size
         )
 
         trainer = Trainer(
@@ -59,7 +62,7 @@ class GPT2Trainer:
         self.tokenizer.save_pretrained(self.pretrain_output_dir)
         print(f"Pre-trained model saved to {self.pretrain_output_dir}")
 
-    def finetune(self, train_data_path, test_data_path, num_epochs=3, batch_size=4):
+    def finetune(self, train_data_path, test_data_path, num_epochs=1, batch_size=2):
         # Load pre-trained model
         if self.model is None:
             self.model = GPT2LMHeadModel.from_pretrained(self.pretrain_output_dir)
@@ -77,7 +80,7 @@ class GPT2Trainer:
                 text_pair=example["response"],
                 truncation=True,
                 padding="max_length",
-                max_length=128,
+                max_length=64,  # Use a smaller max length
             )
 
         finetune_dataset = finetune_dataset.map(tokenize_finetune, batched=True)
@@ -88,11 +91,14 @@ class GPT2Trainer:
             overwrite_output_dir=True,
             num_train_epochs=num_epochs,
             per_device_train_batch_size=batch_size,
-            save_steps=5_000,
+            save_steps=2_000,
             save_total_limit=2,
             learning_rate=2e-5,
             evaluation_strategy="epoch",
-            logging_dir="./logs_finetune",
+            logging_dir=None,  # Disable logging
+            report_to=None,  # Disable reporting to W&B
+            fp16=True,  # Mixed-precision training
+            gradient_accumulation_steps=2  # Accumulate gradients to save time
         )
 
         trainer = Trainer(
@@ -112,12 +118,13 @@ class GPT2Trainer:
         self.tokenizer.save_pretrained(self.finetune_output_dir)
         print(f"Fine-tuned model saved to {self.finetune_output_dir}")
 
+
 # Run the Class to Generate a Fine-tuned Model
 if __name__ == "__main__":
     trainer = GPT2Trainer()
 
-    # Pre-train the model
-    trainer.pretrain(num_epochs=1, batch_size=4)  # Set lower values for testing purposes
+    # Pre-train the model (use fewer epochs for faster results)
+    trainer.pretrain(num_epochs=1, batch_size=2)  # Lower values for quick testing
 
-    # Fine-tune the model
+    # Fine-tune the model (use smaller batch sizes for quicker results)
     trainer.finetune(train_data_path="train_data.json", test_data_path="test_data.json", num_epochs=1, batch_size=2)
