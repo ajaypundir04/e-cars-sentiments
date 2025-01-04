@@ -6,18 +6,26 @@ from handler.category_handler import CategoryHandler
 from transformers import pipeline
 
 
-class SurveyGenerator():
-    def __init__(self, log_level=logging.INFO):
+class SurveyGenerator:
+    def __init__(self, log_level=logging.INFO, fine_tuned_model_dir="./fine_tuned_gpt2"):
         # Initialize logger and CategoryHandler
         logger_manager = LoggerManager(log_level)
         self.logger = logger_manager.get_logger(self.__class__.__name__)
         self.feature_analysis_app = FeatureHandler(log_level)
         self.category_handler = CategoryHandler()  # New CategoryHandler instance
-        self.model = pipeline(
-            "text-generation", 
-            model="gpt2", 
-            pad_token_id=50256  # Explicitly set pad_token_id to eos_token_id
-        )
+        
+        # Load fine-tuned GPT-2 model
+        try:
+            self.model = pipeline(
+                "text-generation", 
+                model=fine_tuned_model_dir,  # Path to the fine-tuned model directory
+                tokenizer=fine_tuned_model_dir,  # Use the fine-tuned tokenizer
+                pad_token_id=50256  # Explicitly set pad_token_id to eos_token_id
+            )
+            self.logger.info(f"Loaded fine-tuned model from {fine_tuned_model_dir}.")
+        except Exception as e:
+            self.logger.error(f"Failed to load fine-tuned model: {e}")
+            raise
 
     def generate_survey(self, mode, language, keyword, num_features, file_paths=None):
         if file_paths is None:
@@ -93,7 +101,6 @@ class SurveyGenerator():
         ])
     
     def _generate_dynamic_question(self, feature, category, templates):
-        # Choose a sample template to provide as context
         if templates:
             sample_template = random.choice(templates)
         else:
@@ -110,7 +117,8 @@ class SurveyGenerator():
 
         try:
             response = self.model(
-                prompt, 
+                prompt,
+                max_new_tokens=100, 
                 num_return_sequences=1, 
                 do_sample=True, 
                 temperature=0.7, 
