@@ -3,29 +3,26 @@ import random
 from handler.feature_handler import FeatureHandler
 from utils.log_utils import LoggerManager
 from handler.category_handler import CategoryHandler
-from transformers import pipeline
-
+from transformers import T5Tokenizer, T5ForConditionalGeneration
+from processor.survey.likert_test import LikertQuestionModel  # Import the LikertQuestionModel
 
 class SurveyGenerator:
-    def __init__(self, log_level=logging.INFO, fine_tuned_model_dir="./fine_tuned_gpt2"):
+    def __init__(self, log_level=logging.INFO):
         # Initialize logger and CategoryHandler
         logger_manager = LoggerManager(log_level)
         self.logger = logger_manager.get_logger(self.__class__.__name__)
         self.feature_analysis_app = FeatureHandler(log_level)
         self.category_handler = CategoryHandler()  # New CategoryHandler instance
         
-        # Load fine-tuned GPT-2 model
-        try:
-            self.model = pipeline(
-                "text-generation", 
-                model=fine_tuned_model_dir,  # Path to the fine-tuned model directory
-                tokenizer=fine_tuned_model_dir,  # Use the fine-tuned tokenizer
-                pad_token_id=50256  # Explicitly set pad_token_id to eos_token_id
-            )
-            self.logger.info(f"Loaded fine-tuned model from {fine_tuned_model_dir}.")
-        except Exception as e:
-            self.logger.error(f"Failed to load fine-tuned model: {e}")
-            raise
+        # Initialize the LikertQuestionModel instance
+        self.model = LikertQuestionModel(train_file="train.jsonl", 
+                                         valid_file="valid.jsonl", 
+                                         output_dir="./t5_likert_finetuned_ev")
+        
+        # Tokenizer and Model for handling feature-to-question generation
+        self.tokenizer = T5Tokenizer.from_pretrained('allenai/t5-small-squad2-question-generation')
+        self.model_name = 'allenai/t5-small-squad2-question-generation'
+        self.t5_model = T5ForConditionalGeneration.from_pretrained(self.model_name)
 
     def generate_survey(self, mode, language, keyword, num_features, file_paths=None):
         if file_paths is None:
@@ -41,6 +38,7 @@ class SurveyGenerator:
         # Flatten and deduplicate feature list
         flat_features = list(set(feature[0] if isinstance(feature, tuple) else feature for sublist in top_features for feature in sublist))
         
+        # Generate survey questions using LikertQuestionModel
         survey_questions = []
         for feature in flat_features:
             question = self.create_question_from_feature(feature)
@@ -51,6 +49,8 @@ class SurveyGenerator:
     def create_question_from_feature(self, feature):
         category = self.category_handler.categorize_feature(feature)
         templates = self._get_template_for_category(category, feature)
+        
+        # Use LikertQuestionModel to generate the question
         generated_question = self._generate_dynamic_question(feature, category, templates)
         return generated_question
 
@@ -101,38 +101,12 @@ class SurveyGenerator:
         ])
     
     def _generate_dynamic_question(self, feature, category, templates):
-        if templates:
-            sample_template = random.choice(templates)
-        else:
-            sample_template = f"How important is the '{feature}' when considering purchasing an electric car?"
-
-        # Construct a detailed prompt
-        prompt = (
-            f"Using the following context:\n"
-            f"Feature: '{feature}'\n"
-            f"Category: '{category}'\n"
-            f"Template example: '{sample_template}'\n"
-            f"Generate a concise, one-line Likert scale question assessing satisfaction, preference, or evaluation for the given feature and category."
-        )
-
-        try:
-            response = self.model(
-                prompt,
-                max_new_tokens=100, 
-                num_return_sequences=1, 
-                do_sample=True, 
-                temperature=0.7, 
-                top_p=0.9, 
-                truncation=True
-            )
-            generated_question = response[0]['generated_text'].strip()
-            if len(generated_question) < 10:
-                raise ValueError("Generated question too short.")
-            return generated_question
-        except Exception as e:
-            self.logger.error(f"Error generating question dynamically: {e}")
-            # Fall back to a template-based question
-            return sample_template
+        # Generate a Likert scale question using LikertQuestionModel
+        generated_question = self.model.generate_question(feature)
+        if len(generated_question) < 10:  # Check if the question is too short
+            self.logger.warning(f"Generated question for feature '{feature}' is too short. Using fallback template.")
+            generated_question = random.choice(templates)  # Use a fallback template if the question is too short
+        return generated_question
 
     def display_survey(self, survey_questions):
         likert_scale = ["Not Important", "Slightly Important", "Moderately Important", 
