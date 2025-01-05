@@ -26,22 +26,34 @@
    - 3.3 [Survey Generation](#survey-generation)
       - 3.3.1 [Automated Survey Question Generation](#automated-survey-question-generation)
       - 3.3.2 [Likert Scale Options](#likert-scale-options)
-   
-4. [Results](#results)
+
+4. [Results and Discussion](#results-and-discussion)
    - 4.1 [Top Features Identified](#top-features-identified)
    - 4.2 [Survey Question Analysis](#survey-question-analysis)
    - 4.3 [Feature Occurrence Visualization](#feature-occurrence-visualization)
+   - 4.4 [Insights from Feature Selection](#insights-from-feature-selection)
+   - 4.5 [Challenges and Limitations](#challenges-and-limitations)
+   - 4.6 [Summary of Findings](#summary-of-findings)
+   - 4.7 [Future Work](#future-work)
 
-5. [Discussion](#discussion)
-   - 5.1 [Insights from Feature Selection](#insights-from-feature-selection)
-   - 5.2 [Challenges and Limitations](#challenges-and-limitations)
-   - 5.3 [Summary of Findings](#summary-of-findings)
-   - 5.4 [Future Work](#future-work)
+5. [Sentiment Analysis Workflow](#sentiment-analysis-workflow)
+   - 5.1 [Mode Selection Process](#mode-selection-process)
+      - 5.1.1 [Process from URL](#process-from-url)
+      - 5.1.2 [Process from File](#process-from-file)
+      - 5.1.3 [Process Survey](#process-survey)
+      - 5.1.4 [Process Transformer](#process-transformer)
+      - 5.1.5 [Run All Modes](#run-all-modes)
+   - 5.2 [Transformer Sentiment Analyzer](#transformer-sentiment-analyzer)
+      - 5.2.1 [Data Preprocessing](#data-preprocessing)
+      - 5.2.2 [Train/Test Split](#train-test-split)
+      - 5.2.3 [Model Training (BERT-based)](#model-training-bert-based)
+      - 5.2.4 [Evaluation and Prediction](#evaluation-and-prediction)
+   - 5.3 [Sales Prediction Workflow](#sales-prediction-workflow)
+      - 5.3.1 [Prepare Data for Model Training](#prepare-data-for-model-training)
+      - 5.3.2 [Model Training (Linear Regression, KNN, Random Forest, LSTM, Transformer)](#model-training-types)
+      - 5.3.3 [Sales Prediction](#sales-prediction)
 
-7. [References](#references)
+6. [References](#references)
 
-8. [Appendix](#appendix)
-   - 8.1 [Additional Data and Charts](#additional-data-and-charts)
-
-   
-
+7. [Appendix](#appendix)
+   - 7.1 [Additional Data and Charts](#additional-data-and-charts)
