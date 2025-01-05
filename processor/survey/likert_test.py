@@ -1,12 +1,12 @@
-from transformers import T5Tokenizer, T5ForConditionalGeneration, Trainer, TrainingArguments, pipeline
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline, TrainingArguments, Trainer
 from datasets import load_dataset
-import os
 import evaluate
-
 from utils.utils import Utils
+import os
 
 class LikertQuestionModel:
-    def __init__(self, model_name="MaRiOrOsSi/t5-base-finetuned-question-answering", train_file="train.jsonl", valid_file="valid.jsonl", 
+    def __init__(self, model_name="t5-small", 
+                 train_file="train.jsonl", valid_file="valid.jsonl", 
                  output_dir="./t5_likert_finetuned_ev"):
         self.model_name = model_name
         self.train_file = train_file
@@ -14,20 +14,20 @@ class LikertQuestionModel:
         self.output_dir = output_dir
         
         # Load tokenizer and model
-        self.tokenizer = T5Tokenizer.from_pretrained(self.model_name)
-        self.model = T5ForConditionalGeneration.from_pretrained(self.model_name)
+        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+        self.model = AutoModelForSeq2SeqLM.from_pretrained(self.model_name)
         self.summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
-
         
         # Load dataset
         self.dataset = load_dataset("json", data_files={"train": self.train_file, "validation": self.valid_file})
         self.tokenized_datasets = None
     
     def preprocess_data(self, batch):
-        # Preparing inputs in the form: "Generate a Likert scale question based on the following statement: {passage}"
-        inputs = [f"Generate a Likert scale question based on the following statement: {context}" for context in batch["context"]]
+        # Preparing inputs in the form: "question: {question} context: {context}"
+        inputs = [f"question: {question} context: {context}" for question, context in zip(batch["question"], batch["context"])]
         targets = batch["question"]
-        
+
+        # Tokenize inputs and labels (questions)
         model_inputs = self.tokenizer(inputs, max_length=512, truncation=True, padding="max_length")
         labels = self.tokenizer(targets, max_length=512, truncation=True, padding="max_length")["input_ids"]
         model_inputs["labels"] = labels
@@ -44,7 +44,7 @@ class LikertQuestionModel:
         
         training_args = TrainingArguments(
             output_dir=self.output_dir,
-            evaluation_strategy="steps",
+            eval_strategy="steps",  # Changed from evaluation_strategy to eval_strategy
             save_strategy="steps",
             save_steps=save_steps,
             eval_steps=save_steps,
@@ -63,7 +63,7 @@ class LikertQuestionModel:
             args=training_args,
             train_dataset=self.tokenized_datasets["train"],
             eval_dataset=self.tokenized_datasets["validation"],
-            tokenizer=self.tokenizer
+            processing_class=self.tokenizer  # Changed from tokenizer to processing_class
         )
         
         trainer.train()
@@ -74,19 +74,26 @@ class LikertQuestionModel:
         self.tokenizer.save_pretrained(self.output_dir)
 
     def generate_question(self, passage):
-        # Format the input as a Likert question generation prompt
-        context = f"Generate a Likert scale question based on the following statement: '{passage}'"
-        inputs = self.tokenizer(context, return_tensors="pt", max_length=512, truncation=True)
+        # Format the input as "question: {question} context: {passage}"
+        question = "How likely this is useful for electric cars?"  # Default question
+        input_text = f"question: {question} context: {passage}"
+        encoded_input = self.tokenizer([input_text],
+                                       return_tensors='pt',
+                                       max_length=512,
+                                       truncation=True)
         
         # Generate the Likert-scale question
-        outputs = self.model.generate(
-            inputs.input_ids,
+        output = self.model.generate(
+            input_ids=encoded_input.input_ids,
+            attention_mask=encoded_input.attention_mask,
             max_length=128,
-            num_beams=5,  # Beam search to explore multiple options
+            num_beams=5,  # Beam search for more diverse outputs
             do_sample=False,  # Ensure deterministic output
             early_stopping=True
         )
-        return self.tokenizer.decode(outputs[0], skip_special_tokens=True).strip()
+        
+        # Decode the output and return it
+        return self.tokenizer.decode(output[0], skip_special_tokens=True).strip()
 
     def evaluate_model(self, eval_file="valid.jsonl"):
         eval_dataset = load_dataset("json", data_files={"validation": eval_file})["validation"]
@@ -108,12 +115,12 @@ class LikertQuestionModel:
         results = rouge.compute()
         print(f"Evaluation Results: {results}")
 
-    def summarize_passages(self, file_paths):
+    def summarize_passages(self, file_path):
         all_passages = []
-        
+        print(file_path)
         passages = Utils.scrape_data_from_file(file_path)
         all_passages.extend(passages)
-        #print(f"passages::${passages}")
+        
         # Join all passages into a single string
         combined_passage = " ".join(all_passages)
         
@@ -135,11 +142,12 @@ if __name__ == "__main__":
 
     # Test the model by generating a Likert question
     file_paths = ['stats/ev_china.md', 'stats/ev_germany.md', 'stats/ev_norway.md', 
-                          'stats/hybrid_germany.md', 'stats/stats.md', 'stats/reviews.csv']
+                  'stats/hybrid_germany.md', 'stats/stats.md']
+    
     for file_path in file_paths:
         passage = model.summarize_passages(file_path)
         question = model.generate_question(passage)
         print(f"Generated Likert Question: {question}")
 
     # Evaluate the model if you have a validation set
-    #model.evaluate_model(eval_file="valid.jsonl")
+    model.evaluate_model(eval_file="valid.jsonl")
