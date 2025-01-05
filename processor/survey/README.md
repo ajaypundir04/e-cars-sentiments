@@ -82,6 +82,13 @@ Each survey question is presented with Likert scale response options, allowing u
 4. **Survey Generation**:
    - Based on the top features, a set of survey questions is generated, asking users to rate their satisfaction or the importance of these features.
 
+
+The workflow consists of several key steps, which are visualized in the flowchart below:
+
+![Workflow](survey_feature.png)  
+
+![Workflowsequence-diagram](survery_feature_sequence_diagram.png)  
+
 ---
 
 

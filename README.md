@@ -94,6 +94,11 @@ The program reads survey responses and associated question texts from the `surve
 
  - distribution (url, file, surveys)
 
+### Workflow
+
+
+![Workflow](sentiment_analysis_flowchart.png) 
+![Sequence Diagram](sentiment_analysis.png)  <!-- Replace with actual path to your image -->
 
 # fine tunning ()
  -- knowledge addition (extra ) don't need

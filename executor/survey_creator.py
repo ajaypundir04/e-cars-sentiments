@@ -1,5 +1,5 @@
 import argparse
-from processor.survey.survey_generator import SurveyGenerator  # Assuming this is the correct import for the SurveyGenerator class
+from processor.survey.survery_generator import SurveyGenerator  # Assuming this is the correct import for the SurveyGenerator class
 from output.survey_printer import SurveyPrinter
 
 class SurveyApp:
