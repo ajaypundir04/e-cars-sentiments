@@ -167,5 +167,5 @@ cython_debug/
 
 .vscode/
 .idea/
-t5*
+t5_like*
 e-cars*

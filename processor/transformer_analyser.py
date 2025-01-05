@@ -139,7 +139,7 @@ class TransformerSentimentAnalyzer:
                     return_attention_mask=True,
                     return_tensors='pt',
                 )
-                self.logger.info(f'texts::${text}')
+                #self.logger.info(f'texts::${text}')
 
                 input_ids = encoding['input_ids']
                 attention_mask = encoding['attention_mask']
