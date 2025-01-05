@@ -97,31 +97,5 @@ The program reads survey responses and associated question texts from the `surve
 ### Workflow
 
 
-![Workflow](sentiment_analysis_flowchart.png) 
+![Workflow](sentiment_anaylsis_flowchart.png) 
 ![Sequence Diagram](sentiment_analysis.png)  <!-- Replace with actual path to your image -->
-
-# fine tunning ()
- -- knowledge addition (extra ) don't need
-
-
- # i will give some context
-    -- charging, govt subsidary, env, pollution
-
-
- #pre-training (foundational model)
-   -- number of articles for context (10) (labeled articles as charging, govt subsidary, etc)
-       -- llm distinguses rest of the articles
-   -- understand articles 
-   -- ask it generate questions     
-
-   #llm from scratch 
-   # fine tunning (labeled dataset(spam, not spam))
-   # run on test data
-
-ToDo:
- Diagram of flow 
- Written format 
- 
- 
- Adapt LLM 
-        
