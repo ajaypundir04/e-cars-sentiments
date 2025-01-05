@@ -16,7 +16,8 @@ The main goal of this project is to generate Likert-scale questions based on con
 
 The workflow consists of several key steps, which are visualized in the flowchart below:
 
-![Workflow](https://example.com/path-to-your-image.png)  <!-- Replace with actual path to your image -->
+![Workflow](likert_transformer.png) 
+![Sequence Diagram](likert_transformer_sequence.png)  <!-- Replace with actual path to your image -->
 
 ### Key Steps in the Workflow
 
