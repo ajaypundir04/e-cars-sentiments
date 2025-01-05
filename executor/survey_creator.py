@@ -1,7 +1,6 @@
 import argparse
 from processor.survey.survey_generator import SurveyGenerator  # Assuming this is the correct import for the SurveyGenerator class
 from output.survey_printer import SurveyPrinter
-from processor.survey.survery_generator_transformer import SurveyGeneratorTransformer
 
 class SurveyApp:
     def __init__(self):
