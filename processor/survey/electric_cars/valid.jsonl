@@ -1,0 +1,157 @@
+[
+    {
+        "prompt": "Electric vehicles contribute to cleaner air quality in urban areas.",
+        "completion": "Do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The initial cost of purchasing an electric vehicle is a significant barrier to adoption.",
+        "completion": "How strongly do you agree? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicles require less maintenance than gasoline-powered vehicles.",
+        "completion": "To what extent do you agree? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Charging infrastructure is adequate for the widespread adoption of electric vehicles.",
+        "completion": "Please indicate your level of agreement: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicles have a significantly lower carbon footprint compared to traditional vehicles.",
+        "completion": "How strongly do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The performance of electric vehicles is comparable to that of gasoline-powered vehicles.",
+        "completion": "To what extent do you agree? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The range of electric vehicles is sufficient for everyday commuting.",
+        "completion": "How much do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The development of electric vehicle battery technology is advancing rapidly.",
+        "completion": "Please indicate your level of agreement: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The cost of electric vehicles will decrease as battery technology improves.",
+        "completion": "How strongly do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Government incentives, like tax rebates, encourage consumers to buy electric vehicles.",
+        "completion": "To what extent do you agree? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The noise pollution in cities would be significantly reduced if more electric vehicles were used.",
+        "completion": "How much do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The cost of charging an electric vehicle is lower than the cost of fueling a gasoline-powered vehicle.",
+        "completion": "Please indicate your level of agreement: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicle battery recycling is an effective way to reduce environmental impact.",
+        "completion": "How strongly do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicles are an important part of the transition to renewable energy.",
+        "completion": "To what extent do you agree? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The production of electric vehicle batteries causes significant environmental harm.",
+        "completion": "How much do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The transition to electric vehicles will significantly reduce global greenhouse gas emissions.",
+        "completion": "Please indicate your level of agreement: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicles can significantly reduce noise pollution in urban areas.",
+        "completion": "How strongly do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicles are a more sustainable option compared to traditional gasoline-powered cars.",
+        "completion": "To what extent do you agree? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Public charging stations for electric vehicles are easy to access in most cities.",
+        "completion": "How much do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicles offer a more environmentally friendly alternative to fossil fuel-powered vehicles.",
+        "completion": "Please indicate your level of agreement: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicles are too expensive for most consumers.",
+        "completion": "How strongly do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The use of electric vehicles is growing at a rapid pace worldwide.",
+        "completion": "To what extent do you agree? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The range of electric vehicles is improving as battery technology evolves.",
+        "completion": "How much do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicles require more maintenance compared to gasoline-powered vehicles.",
+        "completion": "Please indicate your level of agreement: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Charging an electric vehicle takes too long and is inconvenient for many users.",
+        "completion": "How strongly do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicles contribute to reducing global dependence on fossil fuels.",
+        "completion": "To what extent do you agree? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The limited range of electric vehicles is a major disadvantage for long-distance travel.",
+        "completion": "How much do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Battery recycling programs can help mitigate the environmental impact of electric vehicles.",
+        "completion": "Please indicate your level of agreement: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The adoption of electric vehicles will reduce urban air pollution.",
+        "completion": "How strongly do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicle batteries are more expensive to replace than gasoline vehicle engines.",
+        "completion": "To what extent do you agree? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicles provide a safer driving experience compared to traditional vehicles.",
+        "completion": "How much do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "There is sufficient support for electric vehicle adoption from government policies.",
+        "completion": "Please indicate your level of agreement: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The availability of affordable electric vehicle models is increasing.",
+        "completion": "How strongly do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicles are more energy-efficient than traditional gasoline-powered vehicles.",
+        "completion": "To what extent do you agree? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The environmental benefits of electric vehicles outweigh the challenges related to battery production.",
+        "completion": "How much do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The growing popularity of electric vehicles will help reduce global reliance on gasoline.",
+        "completion": "Please indicate your level of agreement: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicles are too dependent on a reliable charging infrastructure for widespread adoption.",
+        "completion": "How strongly do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The transition to electric vehicles is an essential step in addressing climate change.",
+        "completion": "To what extent do you agree? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicles are better for the environment than hybrid vehicles.",
+        "completion": "How much do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    }]

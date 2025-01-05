@@ -7,7 +7,7 @@ class SurveyApp:
         """
         Initialize the SurveyApp with default values and argument parser.
         """
-        self.survey_generator = SurveyGenerator()  # Initialize the SurveyGenerator
+        self.survey_generator = None  # Initialize later based on arguments
 
     def parse_arguments(self):
         """
@@ -35,6 +35,9 @@ class SurveyApp:
         # Parse the arguments
         args = self.parse_arguments()
 
+        
+        self.survey_generator = SurveyGenerator()    
+
         # Generate the survey questions using the arguments
         survey = self.survey_generator.generate_survey(
             mode=args.mode,
@@ -43,7 +46,7 @@ class SurveyApp:
             num_features=args.num_features
         )
 
-       # Check if the survey is a dictionary and extract data accordingly
+        # Check if the survey is a dictionary and extract data accordingly
         survey_questions = survey.get('survey_questions')
         features_with_occurrences = survey.get('features')
 
@@ -55,8 +58,10 @@ class SurveyApp:
         SurveyPrinter.plot_survey_questions(survey_questions)
 
 
-
 # Example usage when running the script directly
 if __name__ == "__main__":
-    app = SurveyApp()  # Initialize the SurveyApp
-    app.run()  # Run the survey generation process
+    try:
+        app = SurveyApp()  # Initialize the SurveyApp
+        app.run()  # Run the survey generation process
+    except Exception as e:
+        print(f"Error: {e}")

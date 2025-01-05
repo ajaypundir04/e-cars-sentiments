@@ -11,3 +11,8 @@ wordcloud
 keras
 transformers
 torch
+datasets
+faiss-gpu
+sentence-transformers
+evaluate
+rouge_score

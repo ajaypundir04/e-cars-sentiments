@@ -1,0 +1,94 @@
+[
+    {
+        "prompt": "Electric vehicles have become a transformative technology in the automotive industry.",
+        "completion": "How strongly do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The shift towards electric mobility is urgent due to global concerns about climate change and air pollution.",
+        "completion": "To what extent do you agree? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Lithium-ion batteries are commonly used in electric vehicles because of their high energy density and relatively low weight.",
+        "completion": "Please indicate your level of agreement: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The driving range of an electric vehicle is a critical factor for consumers when choosing a vehicle.",
+        "completion": "How much do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicle performance is directly linked to the power and efficiency of its battery.",
+        "completion": "To what extent do you agree? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Fast-charging technology has significantly improved, making it easier for electric vehicle drivers to recharge their vehicles.",
+        "completion": "How strongly do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Battery capacity is a key factor in determining the range of an electric vehicle, with larger batteries providing a longer driving range.",
+        "completion": "Please indicate your level of agreement: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The higher cost of large-capacity batteries in electric vehicles is balanced by the longer driving range they provide.",
+        "completion": "How much do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Solid-state batteries, which use a solid electrolyte, offer improved safety and energy density compared to traditional lithium-ion batteries.",
+        "completion": "How strongly do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The environmental impact of electric vehicle batteries, especially during production and disposal, is a major challenge for the industry.",
+        "completion": "To what extent do you agree? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The extraction of materials like lithium, cobalt, and nickel for battery production can have significant environmental consequences.",
+        "completion": "How much do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Advances in battery recycling technology are necessary to minimize the environmental impact of electric vehicle batteries.",
+        "completion": "Please indicate your level of agreement: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The adoption of electric vehicles is expected to grow rapidly due to incentives like tax credits, rebates, and charging infrastructure development.",
+        "completion": "How strongly do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Using renewable energy sources, such as solar and wind, to charge electric vehicles can further reduce their carbon footprint.",
+        "completion": "To what extent do you agree? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicles are more cost-effective than gasoline-powered vehicles due to lower operating costs and fewer maintenance requirements.",
+        "completion": "How much do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The lower cost of electricity compared to gasoline makes electric vehicles a more economical option for many consumers.",
+        "completion": "Please indicate your level of agreement: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Battery technology is crucial for the continued success of electric vehicles, influencing range, performance, and overall efficiency.",
+        "completion": "How strongly do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Researchers are focused on improving battery technology to enhance energy density, charging speed, and efficiency for electric vehicles.",
+        "completion": "To what extent do you agree? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "As the demand for electric vehicles increases, manufacturers will need to innovate in battery technology to meet consumer expectations.",
+        "completion": "How much do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The growing availability of electric vehicle charging stations is helping to address one of the major barriers to EV adoption.",
+        "completion": "How strongly do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "The expansion of home charging solutions is making it easier for consumers to switch to electric vehicles.",
+        "completion": "To what extent do you agree? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicles are becoming available in a wider range of models, making them accessible to more consumers with varying needs.",
+        "completion": "Please indicate your level of agreement: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    },
+    {
+        "prompt": "Electric vehicles offer numerous environmental benefits by reducing emissions and using cleaner energy sources compared to traditional vehicles.",
+        "completion": "How much do you agree with this statement? Options: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree."
+    }
+]
