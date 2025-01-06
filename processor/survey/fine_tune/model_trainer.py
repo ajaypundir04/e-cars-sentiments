@@ -4,7 +4,7 @@ from utils.log_utils import LoggerManager
 
 
 class ModelTrainer:
-    def __init__(self, model, tokenizer, output_dir="./t5_likert_finetuned_ev", log_level=logging.INFO):
+    def __init__(self, model, tokenizer, output_dir="./t5_likert_finetuned_ev_likert", log_level=logging.INFO):
         logger_manager = LoggerManager(log_level)
         self.logger = logger_manager.get_logger(self.__class__.__name__)
         self.model = model
@@ -40,6 +40,7 @@ class ModelTrainer:
         self.logger.info("Starting model training...")
         trainer.train()
         self.logger.info("Model training complete.")
+        self.model.eval()
         self.save_model()
 
     def save_model(self):
