@@ -36,7 +36,7 @@ class SurveyPrinter:
         plt.show()
 
     @staticmethod
-    def plot_survey_questions(survey_questions):
+    def plot_survey_questions(survey_questions, title="Survey Questions Via Feature Extraction"):
         """
         Display the survey questions with only the question text and numbering.
 
@@ -62,7 +62,7 @@ class SurveyPrinter:
         ax.axis('off')
 
         # Set the title
-        plt.title("Survey Questions", fontsize=14)
+        plt.title(title, fontsize=14)
 
         # Adjust layout
         plt.tight_layout()
