@@ -1,4 +1,5 @@
 import argparse
+from processor.survey.question_generator import QuestionGeneration
 from processor.survey.survery_generator import SurveyGenerator 
 from processor.survey.survey_generation_transformer import TransformerSurveyGenerator
 from output.survey_printer import SurveyPrinter
@@ -36,28 +37,12 @@ class SurveyApp:
         """
         # Parse the arguments
         args = self.parse_arguments()
-
-        
+        questionGeneration = QuestionGeneration()
         self.survey_generator = SurveyGenerator()  
-        self.survey_generator_trasnformer = TransformerSurveyGenerator();  
-
-         # Generate the survey questions using the arguments
-        survey_transformer = self.survey_generator_trasnformer.generate_survey(
-            mode=args.mode,
-            language=args.language,
-            keyword=args.keyword
-        )
-
-        # Check if the survey is a dictionary and extract data accordingly
-        survey_questions = survey_transformer.get('survey_questions')
-        features_with_occurrences = survey_transformer.get('summary')
-
-        # Display the generated survey questions
-        self.survey_generator_trasnformer.display_survey(survey_questions)
-
-        # Plot the features and their corresponding questions
-        #SurveyPrinter.plot_feature_frequencies(features_with_occurrences)
-        SurveyPrinter.plot_survey_questions(survey_questions, title='Survey Generation via Transformer')
+        self.survey_generator_trasnformer = TransformerSurveyGenerator(); 
+        
+        
+        
 
         # Generate the survey questions using the arguments
         survey = self.survey_generator.generate_survey(
@@ -77,6 +62,39 @@ class SurveyApp:
         # Plot the features and their corresponding questions
         SurveyPrinter.plot_feature_frequencies(features_with_occurrences)
         SurveyPrinter.plot_survey_questions(survey_questions)
+
+          # Generate the survey questions using the arguments
+        survey_transformer = self.survey_generator_trasnformer.generate_survey(
+            mode=args.mode,
+            language=args.language,
+            keyword=args.keyword
+        )
+
+        # Check if the survey is a dictionary and extract data accordingly
+        survey_questions = survey_transformer.get('survey_questions')
+
+        # Display the generated survey questions
+        self.survey_generator_trasnformer.display_survey(survey_questions)
+
+        # Plot the features and their corresponding questions
+        #SurveyPrinter.plot_feature_frequencies(features_with_occurrences)
+        SurveyPrinter.plot_survey_questions(survey_questions, title='Survey Generation via Transformer')
+
+        questions = questionGeneration.generate_questions(questionGeneration.load_contexts_answers(
+        'contexts_answers.json'
+        ))
+       
+
+        # Display the generated survey questions
+        self.survey_generator_trasnformer.display_survey(questions)
+
+        # Plot the features and their corresponding questions
+        #SurveyPrinter.plot_feature_frequencies(features_with_occurrences)
+        SurveyPrinter.plot_survey_questions(questions, title='Survey Generation via Context')
+
+        
+       
+
 
 
 # Example usage when running the script directly

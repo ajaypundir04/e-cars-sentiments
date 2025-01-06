@@ -1,5 +1,6 @@
 import logging
 from handler.feature_handler import FeatureHandler
+from processor.survey.question_generator import QuestionGeneration
 from utils.log_utils import LoggerManager
 from handler.category_handler import CategoryHandler
 

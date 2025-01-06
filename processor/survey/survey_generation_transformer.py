@@ -35,18 +35,28 @@ class TransformerSurveyGenerator:
         # Process each file separately if in 'file' or 'all' mode
         if mode == 'file' or mode == 'all':
             for file_path in file_paths:
-                # Summarize the cleaned data
+                 # Summarize the cleaned data
                 summary = self.summarizer.summarize_data(file_path)
-                # Generate the question using the summarized context as input
-                summaries.append(summary)
-                question_data = self.qg.generate(summary, answer)  # Generate questions using QuestionGeneration
-                question = question_data['question']
-                self.logger.info(f"Data summarized successfully from file. {summary}")
-                self.logger.info(f'question Generated::{question}')
-                self.logger.info(f'answer::{answer}')
-                survey_questions.append({
-                    'question': question
-                })
+                    
+                # Split the summary into sentences based on the period "."
+                sentences = summary.split('.')
+                    
+                for sentence in sentences:
+                    # Trim any leading or trailing spaces in each sentence
+                    sentence = sentence.strip()        
+                    if sentence:  # Check if the sentence is not empty
+                        # Generate the question using each sentence as input
+                        question_data = self.qg.generate(sentence, answer)
+                        question = question_data['question']
+                            
+                        # Log the process
+                        self.logger.info(f"Data summarized successfully from file. {sentence}")
+                        self.logger.info(f'Question Generated::{question}')
+                        self.logger.info(f'Answer::{answer}')
+                            
+                        # Append the generated question to the list
+                        survey_questions.append(question)
+
 
         # If the mode is 'url' or 'all', scrape and process URL data
         if mode == 'url' or mode == 'all':
@@ -60,9 +70,7 @@ class TransformerSurveyGenerator:
                 self.logger.info(f"Data summarized successfully from file. {summary}")
                 self.logger.info(f'question Generated::{question}')
                 self.logger.info(f'answer::{answer}')
-                survey_questions.append({
-                    'question': question
-                })
+                survey_questions.append(question)
 
         return {
             "survey_questions": survey_questions
@@ -82,7 +90,7 @@ class TransformerSurveyGenerator:
         likert_scale = ["Not Important", "Slightly Important", "Moderately Important", "Very Important", "Extremely Important"]
         
         print("Survey Questions :")
-        for i, item in enumerate(survey_questions, start=1):
-            print(f"{i}. {item['question']}")
+        for i, question in enumerate(survey_questions, start=1):
+            print(f"{i}. {question}")
             print("Response options: " + ", ".join(likert_scale))
             print("\n")
