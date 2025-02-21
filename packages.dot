@@ -1,0 +1,44 @@
+digraph "packages" {
+rankdir=BT
+charset="utf-8"
+"e-cars-sentiments" [color="black", label=<e-cars-sentiments>, shape="box", style="solid"];
+"e-cars-sentiments.executor" [color="black", label=<e-cars-sentiments.executor>, shape="box", style="solid"];
+"e-cars-sentiments.executor.executor" [color="black", label=<e-cars-sentiments.executor.executor>, shape="box", style="solid"];
+"e-cars-sentiments.executor.feature_analysis" [color="black", label=<e-cars-sentiments.executor.feature_analysis>, shape="box", style="solid"];
+"e-cars-sentiments.executor.survey_creator" [color="black", label=<e-cars-sentiments.executor.survey_creator>, shape="box", style="solid"];
+"e-cars-sentiments.model" [color="black", label=<e-cars-sentiments.model>, shape="box", style="solid"];
+"e-cars-sentiments.model.model_geneartioon" [color="black", label=<e-cars-sentiments.model.model_geneartioon>, shape="box", style="solid"];
+"e-cars-sentiments.output" [color="black", label=<e-cars-sentiments.output>, shape="box", style="solid"];
+"e-cars-sentiments.output.sentiment_plotter" [color="black", label=<e-cars-sentiments.output.sentiment_plotter>, shape="box", style="solid"];
+"e-cars-sentiments.output.survey_printer" [color="black", label=<e-cars-sentiments.output.survey_printer>, shape="box", style="solid"];
+"e-cars-sentiments.prediction" [color="black", label=<e-cars-sentiments.prediction>, shape="box", style="solid"];
+"e-cars-sentiments.prediction.ml_prediction" [color="black", label=<e-cars-sentiments.prediction.ml_prediction>, shape="box", style="solid"];
+"e-cars-sentiments.processor" [color="black", label=<e-cars-sentiments.processor>, shape="box", style="solid"];
+"e-cars-sentiments.processor.feature_extractor" [color="black", label=<e-cars-sentiments.processor.feature_extractor>, shape="box", style="solid"];
+"e-cars-sentiments.processor.processor" [color="black", label=<e-cars-sentiments.processor.processor>, shape="box", style="solid"];
+"e-cars-sentiments.processor.sentiment_comparator" [color="black", label=<e-cars-sentiments.processor.sentiment_comparator>, shape="box", style="solid"];
+"e-cars-sentiments.processor.survey" [color="black", label=<e-cars-sentiments.processor.survey>, shape="box", style="solid"];
+"e-cars-sentiments.processor.survey.fine_tune" [color="black", label=<e-cars-sentiments.processor.survey.fine_tune>, shape="box", style="solid"];
+"e-cars-sentiments.processor.survey.fine_tune.data_loader" [color="black", label=<e-cars-sentiments.processor.survey.fine_tune.data_loader>, shape="box", style="solid"];
+"e-cars-sentiments.processor.survey.fine_tune.data_preprocessor" [color="black", label=<e-cars-sentiments.processor.survey.fine_tune.data_preprocessor>, shape="box", style="solid"];
+"e-cars-sentiments.processor.survey.fine_tune.fine_tunning_workflow" [color="black", label=<e-cars-sentiments.processor.survey.fine_tune.fine_tunning_workflow>, shape="box", style="solid"];
+"e-cars-sentiments.processor.survey.fine_tune.generate_train_test" [color="black", label=<e-cars-sentiments.processor.survey.fine_tune.generate_train_test>, shape="box", style="solid"];
+"e-cars-sentiments.processor.survey.fine_tune.likert_survey_workflow" [color="black", label=<e-cars-sentiments.processor.survey.fine_tune.likert_survey_workflow>, shape="box", style="solid"];
+"e-cars-sentiments.processor.survey.fine_tune.model_trainer" [color="black", label=<e-cars-sentiments.processor.survey.fine_tune.model_trainer>, shape="box", style="solid"];
+"e-cars-sentiments.processor.survey.fine_tune.question_generator" [color="black", label=<e-cars-sentiments.processor.survey.fine_tune.question_generator>, shape="box", style="solid"];
+"e-cars-sentiments.processor.survey.fine_tune.summarizer" [color="black", label=<e-cars-sentiments.processor.survey.fine_tune.summarizer>, shape="box", style="solid"];
+"e-cars-sentiments.processor.survey.likert_test" [color="black", label=<e-cars-sentiments.processor.survey.likert_test>, shape="box", style="solid"];
+"e-cars-sentiments.processor.survey.question_generator" [color="black", label=<e-cars-sentiments.processor.survey.question_generator>, shape="box", style="solid"];
+"e-cars-sentiments.processor.survey.survery_generator" [color="black", label=<e-cars-sentiments.processor.survey.survery_generator>, shape="box", style="solid"];
+"e-cars-sentiments.processor.survey.survey_analyser" [color="black", label=<e-cars-sentiments.processor.survey.survey_analyser>, shape="box", style="solid"];
+"e-cars-sentiments.processor.survey.survey_generation_transformer" [color="black", label=<e-cars-sentiments.processor.survey.survey_generation_transformer>, shape="box", style="solid"];
+"e-cars-sentiments.processor.survey.t5_fine_tuner" [color="black", label=<e-cars-sentiments.processor.survey.t5_fine_tuner>, shape="box", style="solid"];
+"e-cars-sentiments.processor.survey.t5_survery_generator" [color="black", label=<e-cars-sentiments.processor.survey.t5_survery_generator>, shape="box", style="solid"];
+"e-cars-sentiments.processor.transformer_analyser" [color="black", label=<e-cars-sentiments.processor.transformer_analyser>, shape="box", style="solid"];
+"e-cars-sentiments.setup" [color="black", label=<e-cars-sentiments.setup>, shape="box", style="solid"];
+"e-cars-sentiments.utils" [color="black", label=<e-cars-sentiments.utils>, shape="box", style="solid"];
+"e-cars-sentiments.utils.feature_selection" [color="black", label=<e-cars-sentiments.utils.feature_selection>, shape="box", style="solid"];
+"e-cars-sentiments.utils.log_utils" [color="black", label=<e-cars-sentiments.utils.log_utils>, shape="box", style="solid"];
+"e-cars-sentiments.utils.utils" [color="black", label=<e-cars-sentiments.utils.utils>, shape="box", style="solid"];
+"e-cars-sentiments" -> "e-cars-sentiments.executor" [arrowhead="open", arrowtail="none"];
+}

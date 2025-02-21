@@ -1,0 +1,238 @@
+classDiagram
+  class DataLoader {
+    dataset : NoneType
+    logger : Logger, NoneType
+    train_file : str
+    valid_file : str
+    load_data()
+  }
+  class DataPreprocessor {
+    logger : Logger, NoneType
+    tokenizer
+    preprocess_data(batch)
+    tokenize_dataset(dataset)
+  }
+  class DataProcessor {
+    logger : Logger, NoneType
+    process_and_aggregate_data(sources, process_function, keyword, key_word_map)
+    process_data_with_url_keyword(url, keyword, key_word_map)
+    process_data_with_url_keyword_from_file(file_path, keyword, key_word_map)
+    process_data_with_url_keyword_from_multi_file(file_paths, keyword, key_word_map)
+  }
+  class ECarSentimentPrediction {
+    knn : KNeighborsRegressor
+    linear_reg : LinearRegression
+    logger : Logger, NoneType
+    lstm : NoneType, Sequential
+    model_type : str
+    random_forest : RandomForestRegressor
+    transformer : Model, NoneType
+    predict_future(model, X)
+    prepare_data(sentiment_data)
+    run(X, y)
+    train_all_models(X, y)
+    train_knn(X, y, n_neighbors)
+    train_linear_regression(X, y)
+    train_lstm(X, y, input_shape)
+    train_random_forest(X, y)
+    train_transformer(X, y, input_shape)
+  }
+  class FeatureExecutor {
+    app : FeatureHandler
+    execute()
+    parse_arguments()
+  }
+  class FeatureExtractor {
+    logger : Logger, NoneType
+    extract_features_from_file(file_path, key_word_map)
+    extract_features_from_url(url, key_word_map)
+    process_and_aggregate_features(sources, process_function, key_word_map)
+  }
+  class FeatureSelection {
+    logger : Logger, NoneType
+    analyze_sentiment(text)
+    extract_entities(text)
+    extract_features_tfidf(texts, top_n)
+    preprocess_texts(posts, language, use_stemming, use_lemmatization)
+    scrape_data_from_file(file_path, column_name)
+    scrape_data_without_user(url, tag, class_name)
+  }
+  class FineTuningWorkflow {
+    device : device
+    logger : Logger, NoneType
+    model : NoneType, T5ForConditionalGeneration, tuple
+    tokenizer : T5Tokenizer, bool
+    trained_model_path : str
+    trained_tokenizer_path : str
+    evaluate_model(eval_file)
+    execute()
+  }
+  class LikertQuestionModel {
+    dataset
+    model
+    model_name : str
+    output_dir : str
+    summarizer
+    tokenized_datasets : NoneType
+    tokenizer : PreTrainedTokenizerFast, bool
+    train_file : str
+    valid_file : str
+    evaluate_model(eval_file)
+    generate_question(passage)
+    preprocess_data(batch)
+    save_model()
+    summarize_passages(file_path)
+    tokenize_dataset()
+    train_model(learning_rate, batch_size, num_epochs, save_steps)
+  }
+  class LoggerManager {
+    level : int
+    get_logger(name, level)
+  }
+  class ModelTrainer {
+    logger : Logger, NoneType
+    model
+    output_dir : str
+    tokenizer
+    save_model()
+    train_model(tokenized_dataset, learning_rate, batch_size, num_epochs, save_steps)
+  }
+  class QuestionGeneration {
+    device : device
+    logger : Logger, NoneType
+    model : NoneType, T5ForConditionalGeneration, tuple
+    tokenizer : T5Tokenizer, bool
+    generate(answer: str, context: str)
+    generate_questions(contexts_answers)
+    load_contexts_answers(json_file)
+  }
+  class QuestionGenerationWorkflow {
+    logger : Logger, NoneType
+    model_dir : str
+    execute()
+  }
+  class QuestionGenerator {
+    logger : Logger, NoneType
+    model : T5ForConditionalGeneration, tuple
+    tokenizer : T5Tokenizer, bool
+    generate_question(passage)
+  }
+  class QuestionGenerator {
+    logger : Logger, NoneType
+    model
+    tokenizer
+    generate_question(passage, question_template)
+  }
+  class SentimentAnalysisApp {
+    data_processor : DataProcessor
+    logger : Logger, NoneType
+    ml_prediction : ECarSentimentPrediction
+    transformer_analyzer : TransformerSentimentAnalyzer
+    get_keywords(language)
+    get_survey_data(language)
+    process_from_file(file_paths, keyword, language)
+    process_from_url(language, keyword)
+    process_survey(language)
+    process_transformer(language, keyword)
+    run(language, keyword)
+  }
+  class SentimentComparator {
+    model
+    model_type : str
+    tokenizer : PreTrainedTokenizerFast, bool
+    analyze_sentiment(text)
+    compare_sentiments(sentiment_words, sentiment_text, positive_factors, negative_factors, neutral_factors)
+    plot_sentiment_comparison(sentiments)
+  }
+  class SentimentDataset {
+    labels
+    max_len
+    texts
+    tokenizer
+  }
+  class SentimentPlotter {
+    plot_predictions(predictions)
+    plot_sentiment_analysis_with_words(sentiment_words, sentiment_text, positive_factors, negative_factors, neutral_factors, plot_title)
+    plot_survey_sentiment_summary(sentiment_summary)
+    plot_transformer_sentiment_summary(positive_count, negative_count, neutral_count)
+  }
+  class Summarizer {
+    logger : Logger, NoneType
+    summarizer
+    summarize_data(file_path)
+    summarize_data_from_url(url)
+  }
+  class SurveyAnalyser {
+    logger : Logger, NoneType
+    negative_keywords
+    neutral_keywords
+    positive_keywords
+    stop_words : set
+    analyze_survey(survey_data)
+    classify_question_sentiment(question_text)
+    process_responses(survey_responses, questions_texts)
+    summarize_sentiments(sentiment_matrix)
+  }
+  class SurveyApp {
+    survey_generator : NoneType, SurveyGenerator
+    survey_generator_trasnformer : NoneType, TransformerSurveyGenerator
+    parse_arguments()
+    run()
+  }
+  class SurveyGenerator {
+    category_handler : CategoryHandler
+    feature_analysis_app : FeatureHandler
+    logger : Logger, NoneType
+    create_question_from_feature(feature)
+    display_survey(survey_questions)
+    generate_survey(mode, language, keyword, num_features, file_paths)
+  }
+  class SurveyPrinter {
+    plot_feature_frequencies(features_with_occurrences)
+    plot_survey_questions(survey_questions, title)
+  }
+  class T5LikertFineTuner {
+    dataset
+    model : T5ForConditionalGeneration, tuple
+    model_name : str
+    output_dir : str
+    tokenized_datasets : NoneType
+    tokenizer : T5Tokenizer, bool
+    train_file : str
+    valid_file : str
+    preprocess_data(batch)
+    save_model()
+    tokenize_dataset()
+    train_model(learning_rate, batch_size, num_epochs, save_steps)
+  }
+  class TransformerSentimentAnalyzer {
+    batch_size : int
+    epochs : int
+    logger : Logger, NoneType
+    max_len : int
+    model : BertForSequenceClassification, tuple
+    tokenizer : BertTokenizer, bool
+    evaluate(val_dataset)
+    predict(texts)
+    prepare_data(data)
+    preprocess_texts(texts, language)
+    supported_languages()
+    train(train_dataset, val_dataset)
+  }
+  class TransformerSurveyGenerator {
+    logger : Logger, NoneType
+    qg : QuestionGeneration
+    summarizer : Summarizer
+    display_survey(survey_questions)
+    generate_survey(mode, language, keyword, file_paths, urls)
+  }
+  class Utils {
+    logger : Logger, NoneType
+    aggregate_matrix_sentiments(sentiment_matrix)
+    analyze_sentiment(text, positive, neutral, negative)
+    extract_entities(text)
+    preprocess_texts(posts, language, use_stemming, use_lemmatization)
+    scrape_data_from_file(file_path, column_name)
+    scrape_data_without_user(url, tag, class_name, attr_name)
+    scrape_data_without_user_with_seed_url(seed_url, keyword, tag, class_name, attr_name, max_depth)
+  }
