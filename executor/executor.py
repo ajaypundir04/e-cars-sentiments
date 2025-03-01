@@ -6,6 +6,8 @@ import numpy as np
 import pandas as pd
 from prediction.ml_prediction import ECarSentimentPrediction
 from processor.transformer_analyser import TransformerSentimentAnalyzer
+from transformer.sentiment_analyzer import TransformerMultilingualSentimentAnalyzer
+
 from utils.log_utils import LoggerManager
 from processor.processor import DataProcessor
 from output.sentiment_plotter import SentimentPlotter
@@ -20,6 +22,7 @@ class SentimentAnalysisApp:
         self.data_processor = DataProcessor(log_level)
         self.ml_prediction = ECarSentimentPrediction()
         self.transformer_analyzer = TransformerSentimentAnalyzer()
+        self.multi_sentiment_analyzer = TransformerMultilingualSentimentAnalyzer()
 
 
     def get_keywords(self, language):
@@ -226,6 +229,8 @@ class SentimentAnalysisApp:
 
         # Get the URLs from the keyword map
         urls = key_word_map['urls']
+        print(urls)
+        self.multi_sentiment_analyzer.classify_sentiments_from_urls(urls)
 
         # Process and aggregate data from URLs
         _, aggregated_sentiment_text, _, _, _ = self.data_processor.process_and_aggregate_data(
