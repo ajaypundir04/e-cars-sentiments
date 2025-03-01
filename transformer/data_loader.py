@@ -1,34 +1,37 @@
+# data_loader.py
 import configparser
 import torch
 from torch.utils.data import Dataset
+from transformers import AutoTokenizer
 
 class ElectricCarSentimentDataset(Dataset):
     def __init__(self, config_path, tokenizer):
         self.tokenizer = tokenizer
-        self.texts, self.labels = self.load_data_from_config(config_path)
-
-    def load_data_from_config(self, config_path):
+        self.data = self._load_config_data(config_path)
+        
+    def _load_config_data(self, config_path):
         config = configparser.ConfigParser()
-        config.read(config_path, encoding='utf-8')
+        config.read(config_path, encoding="utf-8")
 
-        texts, labels = [], []
-        sentiment_mapping = {"positive_keywords": 2, "negative_keywords": 0, "neutral_keywords": 1}
+        words, labels = [], []
+        sentiment_map = {"positive_keywords": 2, "neutral_keywords": 1, "negative_keywords": 0}
 
         for section in config.sections():
-            for sentiment, label in sentiment_mapping.items():
+            for sentiment, label in sentiment_map.items():
                 if sentiment in config[section]:
-                    words = config[section][sentiment].split(", ")
-                    texts.extend(words)
-                    labels.extend([label] * len(words))
+                    words_list = config[section][sentiment].split(", ")
+                    words.extend(words_list)
+                    labels.extend([label] * len(words_list))
 
-        return texts, labels
+        return list(zip(words, labels))
 
     def __len__(self):
-        return len(self.texts)
+        return len(self.data)
 
     def __getitem__(self, idx):
+        word, label = self.data[idx]
         encoding = self.tokenizer(
-            self.texts[idx],
+            word,
             padding="max_length",
             truncation=True,
             max_length=32,
@@ -37,5 +40,5 @@ class ElectricCarSentimentDataset(Dataset):
         return {
             "input_ids": encoding["input_ids"].squeeze(),
             "attention_mask": encoding["attention_mask"].squeeze(),
-            "labels": torch.tensor(self.labels[idx], dtype=torch.long),
+            "labels": torch.tensor(label, dtype=torch.long),
         }
