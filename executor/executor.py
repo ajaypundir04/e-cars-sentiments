@@ -110,10 +110,13 @@ class SentimentAnalysisApp:
         )
 
         # Plot aggregated sentiment analysis results from URLs
+        font_path= None
+        if(language == 'CN'):
+            font_path = 'output/cn_ft.otf'
         SentimentPlotter.plot_sentiment_analysis_with_words(
             aggregated_sentiment_words, aggregated_sentiment_text, 
             aggregated_positive_factors, aggregated_negative_factors, 
-            aggregated_neutral_factors, "Sentiment Analysis with Web Crawler"
+            aggregated_neutral_factors, "Sentiment Analysis with Web Crawler", cn_font_path=font_path
         )
         return aggregated_positive_factors, aggregated_negative_factors, aggregated_neutral_factors
 
@@ -229,40 +232,40 @@ class SentimentAnalysisApp:
 
         # Get the URLs from the keyword map
         urls = key_word_map['urls']
-        print(urls)
         self.multi_sentiment_analyzer.classify_sentiments_from_urls(urls)
 
         # Process and aggregate data from URLs
-        _, aggregated_sentiment_text, _, _, _ = self.data_processor.process_and_aggregate_data(
-            urls, self.data_processor.process_data_with_url_keyword, keyword, key_word_map
-        )
+        #_, aggregated_sentiment_text, _, _, _ = self.data_processor.process_and_aggregate_data(
+        #    urls, self.data_processor.process_data_with_url_keyword, keyword, key_word_map
+        #)
 
         # Preprocess the aggregated text based on the language
-        preprocessed_texts = self.transformer_analyzer.preprocess_texts(aggregated_sentiment_text, language)
+        #preprocessed_texts = self.transformer_analyzer.preprocess_texts(aggregated_sentiment_text, language)
 
         # Perform sentiment analysis using Transformer on the preprocessed text
-        sentiments = self.transformer_analyzer.predict(preprocessed_texts)
+        #sentiments = self.transformer_analyzer.predict(preprocessed_texts)
 
         # Count positive, negative, and neutral sentiments
-        positive_count = sentiments.count(1)
-        negative_count = sentiments.count(0)
-        neutral_count = len(sentiments) - positive_count - negative_count  # Assuming binary classification
+        #positive_count = sentiments.count(1)
+        #negative_count = sentiments.count(0)
+        #neutral_count = len(sentiments) - positive_count - negative_count  # Assuming binary classification
 
         # Log and return results
-        self.logger.info(f"Positive Sentiment Count: {positive_count}")
-        self.logger.info(f"Negative Sentiment Count: {negative_count}")
-        self.logger.info(f"Neutral Sentiment Count: {neutral_count}")
+        #self.logger.info(f"Positive Sentiment Count: {positive_count}")
+        #self.logger.info(f"Negative Sentiment Count: {negative_count}")
+        #self.logger.info(f"Neutral Sentiment Count: {neutral_count}")
 
         # Plotting the results using the new plot method
-        SentimentPlotter.plot_transformer_sentiment_summary(positive_count, negative_count, neutral_count)
+        #SentimentPlotter.plot_transformer_sentiment_summary(positive_count, negative_count, neutral_count)
 
-        return positive_count, negative_count, neutral_count
+        #return positive_count, negative_count, neutral_count
 
 
 
 
 
 if __name__ == '__main__':
+    SentimentPlotter._configure_fonts()
     parser = argparse.ArgumentParser(description="Run Sentiment Analysis on URLs, Files, Surveys, and Transformer-based Analysis.")
     
     parser.add_argument('--mode', type=str, choices=['url', 'file', 'survey', 'transformer', 'both', 'all'], default='all',

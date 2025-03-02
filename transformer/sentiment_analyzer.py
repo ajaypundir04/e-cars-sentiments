@@ -12,8 +12,8 @@ from transformers import Trainer, TrainingArguments
 class TransformerMultilingualSentimentAnalyzer:
     def __init__(self, log_level=logging.INFO):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.tokenizer = AutoTokenizer.from_pretrained("bert-base-multilingual-cased")
-        self.model = AutoModelForSequenceClassification.from_pretrained("bert-base-multilingual-cased", num_labels=3).to(self.device)
+        self.tokenizer = AutoTokenizer.from_pretrained("ajay-pundir/e_car_sentiment_model")
+        self.model = AutoModelForSequenceClassification.from_pretrained("ajay-pundir/e_car_sentiment_model", num_labels=3).to(self.device)
 
         # Setup logger
         self.logger = logging.getLogger(__name__)
@@ -27,35 +27,6 @@ class TransformerMultilingualSentimentAnalyzer:
             self.logger.addHandler(console_handler)
 
         self.logger.info("Initialized TransformerMultilingualSentimentAnalyzer")
-
-    def fine_tune_model(self, dataset_path):
-        """
-        Fine-tunes the model on a custom dataset for electric car-related sentiment analysis.
-        """
-        self.logger.info("Loading dataset for fine-tuning...")
-        dataset = ElectricCarSentimentDataset(dataset_path, self.tokenizer)
-        train_dataloader = DataLoader(dataset, batch_size=16, shuffle=True)
-
-        training_args = TrainingArguments(
-            output_dir="./results",
-            num_train_epochs=3,
-            per_device_train_batch_size=16,
-            per_device_eval_batch_size=16,
-            logging_dir="./logs",
-            evaluation_strategy="epoch",
-        )
-
-        trainer = Trainer(
-            model=self.model,
-            args=training_args,
-            train_dataset=dataset,
-        )
-        trainer.train()
-
-        # Save the fine-tuned model
-        self.model.save_pretrained("./fine_tuned_car_sentiment_model")
-        self.tokenizer.save_pretrained("./fine_tuned_car_sentiment_model")
-        self.logger.info("Fine-tuning completed! Model saved.")
 
     def classify_sentiments_from_urls(self, urls):
         """
@@ -116,7 +87,7 @@ class TransformerMultilingualSentimentAnalyzer:
 
     def plot_sentiment_analysis_with_words(self, word_sentiments):
         """
-        Plots sentiment distribution and generates a word cloud for electric car-related sentiment categories.
+        Plots sentiment distribution as a pie chart and generates separate word clouds for positive and negative factors.
         """
         if not word_sentiments:
             self.logger.warning("No sentiment data to plot.")
@@ -126,7 +97,6 @@ class TransformerMultilingualSentimentAnalyzer:
 
         positive_words = [word for word, sentiment in word_sentiments.items() if sentiment == "Positive"]
         negative_words = [word for word, sentiment in word_sentiments.items() if sentiment == "Negative"]
-        neutral_words = [word for word, sentiment in word_sentiments.items() if sentiment == "Neutral"]
 
         fig, axes = plt.subplots(1, 3, figsize=(18, 6))
 
@@ -138,10 +108,9 @@ class TransformerMultilingualSentimentAnalyzer:
         axes[0].pie(sizes, labels=labels, autopct='%1.1f%%', colors=[colors[label] for label in labels])
         axes[0].set_title('Electric Car Sentiment Distribution')
 
-        # Generate word clouds for each sentiment category
-        wordcloud_positive = WordCloud(width=400, height=400, background_color='white').generate(" ".join(positive_words))
-        wordcloud_negative = WordCloud(width=400, height=400, background_color='white').generate(" ".join(negative_words))
-        wordcloud_neutral = WordCloud(width=400, height=400, background_color='white').generate(" ".join(neutral_words))
+        # Generate word clouds for positive and negative sentiment categories
+        wordcloud_positive = WordCloud(width=500, height=500, background_color='white', colormap='Greens').generate(" ".join(positive_words))
+        wordcloud_negative = WordCloud(width=500, height=500, background_color='white', colormap='Reds').generate(" ".join(negative_words))
 
         axes[1].imshow(wordcloud_positive, interpolation='bilinear')
         axes[1].axis("off")
@@ -153,27 +122,3 @@ class TransformerMultilingualSentimentAnalyzer:
 
         plt.tight_layout()
         plt.show()
-
-class ElectricCarSentimentDataset(Dataset):
-    def __init__(self, file_path, tokenizer):
-        self.data = pd.read_csv(file_path)
-        self.tokenizer = tokenizer
-        self.texts = list(self.data["Word"])
-        self.labels = list(self.data["Sentiment"])  # 0: Negative, 1: Neutral, 2: Positive
-
-    def __len__(self):
-        return len(self.texts)
-
-    def __getitem__(self, idx):
-        encoding = self.tokenizer(
-            self.texts[idx],
-            padding="max_length",
-            truncation=True,
-            max_length=32,
-            return_tensors="pt"
-        )
-        return {
-            "input_ids": encoding["input_ids"].squeeze(),
-            "attention_mask": encoding["attention_mask"].squeeze(),
-            "labels": torch.tensor(self.labels[idx], dtype=torch.long),
-        }

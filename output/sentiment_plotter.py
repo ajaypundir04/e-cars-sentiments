@@ -1,14 +1,47 @@
+import os
 import matplotlib.pyplot as plt
+import requests
 from wordcloud import WordCloud
 from collections import Counter
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 import numpy as np
+from matplotlib import rcParams
+import matplotlib.font_manager as fm
 
 class SentimentPlotter:
+
     @staticmethod
-    def plot_sentiment_analysis_with_words(sentiment_words, sentiment_text, positive_factors, negative_factors, neutral_factors, plot_title="Sentiment Analysis"):
+    def _configure_fonts():
+        """Configure fonts for multilingual support"""
+        try:
+            # Try common fonts that support multiple languages
+            font_options = [
+                'Noto Sans CJK JP',  # Chinese/Japanese/Korean
+                'Arial Unicode MS',   # Windows/macOS
+                'DejaVu Sans',        # Linux
+                'WenQuanYi Zen Hei',  # Chinese
+                'Source Han Sans',     # Pan-CJK
+                'Microsoft JhengHei'  # Chinese
+            ]
+            
+            # Find the first available font
+            available_fonts = set(f.name for f in fm.fontManager.ttflist)
+            for font in font_options:
+                if font in available_fonts:
+                    rcParams['font.sans-serif'] = [font]
+                    break
+            
+            rcParams['axes.unicode_minus'] = False  # Fix minus sign display
+            
+        except Exception as e:
+            print(f"Font configuration error: {e}")
+
+   
+
+    @staticmethod
+    def plot_sentiment_analysis_with_words(sentiment_words, sentiment_text, positive_factors, negative_factors, neutral_factors, plot_title="Sentiment Analysis", cn_font_path=None):
         """
         Plots the sentiment analysis results in a pie chart, including positive, negative, and neutral factors.
         Also plots a word cloud, a frequency bar chart, and K-means clustering between factors.
@@ -26,6 +59,7 @@ class SentimentPlotter:
             'Negative': len(negative_factors),
             'Neutral': len(neutral_factors)
         }
+        SentimentPlotter._configure_fonts()
         
         # Check if there is any data to plot
         if not sentiment_counts or all(v == 0 for v in sentiment_counts.values()):
@@ -34,8 +68,10 @@ class SentimentPlotter:
 
         # Create a word cloud from the sentiment text
         combined_text = ' '.join(sentiment_text)
-        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(combined_text)
-
+        if(cn_font_path is not None):
+            wordcloud = WordCloud(width=800, height=400, background_color='white', font_path=cn_font_path).generate(combined_text)
+        else:
+            wordcloud = WordCloud(width=800, height=400, background_color='white').generate(combined_text)
         # Calculate word frequencies for the bar chart
         all_factors = positive_factors + negative_factors + neutral_factors
         word_frequencies = Counter(all_factors).most_common(10)  # Get top 10 words
@@ -72,8 +108,8 @@ class SentimentPlotter:
             neg_words = [word for word in cluster_words if word in negative_factors]
             neu_words = [word for word in cluster_words if word in neutral_factors]
             
-            top_pos_words = Counter(pos_words).most_common(3)
-            top_neg_words = Counter(neg_words).most_common(3)
+            top_pos_words = Counter(pos_words).most_common(10)
+            top_neg_words = Counter(neg_words).most_common(10)
             top_neu_words = Counter(neu_words).most_common(3)
             
             cluster_top_words[i] = {
@@ -129,6 +165,7 @@ class SentimentPlotter:
         # Show the plots
         plt.tight_layout()
         plt.show()
+
         
     @staticmethod
     def plot_survey_sentiment_summary(sentiment_summary):
