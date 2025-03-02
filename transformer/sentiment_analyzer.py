@@ -28,7 +28,7 @@ class TransformerMultilingualSentimentAnalyzer:
 
         self.logger.info("Initialized TransformerMultilingualSentimentAnalyzer")
 
-    def classify_sentiments_from_urls(self, urls):
+    def classify_sentiments_from_urls(self, urls, font_path=None):
         """
         Scrapes data from multiple URLs and classifies sentiments for electric car-related words.
         """
@@ -51,10 +51,38 @@ class TransformerMultilingualSentimentAnalyzer:
             all_word_sentiments.update(word_sentiments)
 
         if all_word_sentiments:
-            self.plot_sentiment_analysis_with_words(all_word_sentiments)
+            self.plot_sentiment_analysis_with_words(all_word_sentiments, font_path, 'url')
         else:
             self.logger.warning("No valid data to plot.")
         return all_word_sentiments
+
+    def classify_sentiments_from_files(self, files, font_path=None):
+        """
+        Scrapes data from multiple URLs and classifies sentiments for electric car-related words.
+        """
+        all_word_sentiments = {}
+        for f in files:
+            self.logger.info(f"Scraping data from {f}")
+            texts = Utils.scrape_data_from_file(f)
+
+            if not texts:
+                self.logger.warning(f"No data extracted from {f}")
+                continue
+
+            words = [word for text in texts for word in text.split() if len(word) > 2]
+            if not words:
+                self.logger.warning(f"No significant words found in {f}")
+                continue
+
+            word_sentiments = self.classify_sentiments(words)
+            self.logger.info("word_sentiments: %s", word_sentiments)
+            all_word_sentiments.update(word_sentiments)
+
+        if all_word_sentiments:
+            self.plot_sentiment_analysis_with_words(all_word_sentiments, font_path, 'file')
+        else:
+            self.logger.warning("No valid data to plot.")
+        return all_word_sentiments    
 
     def classify_sentiments(self, words):
         """
@@ -85,7 +113,7 @@ class TransformerMultilingualSentimentAnalyzer:
         self.logger.info("Completed Word Sentiment Classification")
         return word_sentiments
 
-    def plot_sentiment_analysis_with_words(self, word_sentiments):
+    def plot_sentiment_analysis_with_words(self, word_sentiments, font_path=None, mode=None):
         """
         Plots sentiment distribution as a pie chart and generates separate word clouds for positive and negative factors.
         """
@@ -94,7 +122,7 @@ class TransformerMultilingualSentimentAnalyzer:
             return
 
         sentiment_counts = Counter(word_sentiments.values())
-
+            
         positive_words = [word for word, sentiment in word_sentiments.items() if sentiment == "Positive"]
         negative_words = [word for word, sentiment in word_sentiments.items() if sentiment == "Negative"]
 
@@ -106,11 +134,15 @@ class TransformerMultilingualSentimentAnalyzer:
         colors = {'Positive': 'green', 'Negative': 'red', 'Neutral': 'blue'}
 
         axes[0].pie(sizes, labels=labels, autopct='%1.1f%%', colors=[colors[label] for label in labels])
-        axes[0].set_title('Electric Car Sentiment Distribution')
+        axes[0].set_title(f'Electric Car Sentiment Distribution ${mode}')
 
         # Generate word clouds for positive and negative sentiment categories
-        wordcloud_positive = WordCloud(width=500, height=500, background_color='white', colormap='Greens').generate(" ".join(positive_words))
-        wordcloud_negative = WordCloud(width=500, height=500, background_color='white', colormap='Reds').generate(" ".join(negative_words))
+        if(font_path is None):
+            wordcloud_positive = WordCloud(width=500, height=500, background_color='white', colormap='Greens').generate(" ".join(positive_words))
+            wordcloud_negative = WordCloud(width=500, height=500, background_color='white', colormap='Reds').generate(" ".join(negative_words))
+        else:
+            wordcloud_positive = WordCloud(width=500, height=500, background_color='white', colormap='Greens', font_path= font_path).generate(" ".join(positive_words))
+            wordcloud_negative = WordCloud(width=500, height=500, background_color='white', colormap='Reds', font_path= font_path).generate(" ".join(negative_words))
 
         axes[1].imshow(wordcloud_positive, interpolation='bilinear')
         axes[1].axis("off")
