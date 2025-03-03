@@ -123,6 +123,11 @@ class SentimentAnalysisApp:
             aggregated_positive_factors, aggregated_negative_factors, 
             aggregated_neutral_factors, "Sentiment Analysis with Web Crawler", cn_font_path=font_path
         )
+        map_max = {   "aggregated_positive_factors": aggregated_positive_factors,
+            "aggregated_negative_factors": aggregated_negative_factors,
+            "aggregated_neutral_factors": aggregated_neutral_factors
+        } 
+        self.logger.info(f'---------------------------------------------------- ${map_max}')
         return aggregated_positive_factors, aggregated_negative_factors, aggregated_neutral_factors
 
     def process_from_file(self, file_paths, keyword, language):
@@ -352,6 +357,11 @@ class SentimentAnalysisApp:
             )
 
         plt.show()
+        matrix_map = {
+            "similarity_matrix": similarity_matrix,
+            "sentiment_words": sentiment_words
+        }
+        self.logger.info(f"Completed Sentiment Analysis Comparison ${matrix_map}")
 
         return {
             "similarity_matrix": similarity_matrix,

@@ -41,6 +41,18 @@ class SurveyApp:
         self.survey_generator = SurveyGenerator()  
         self.survey_generator_trasnformer = TransformerSurveyGenerator(); 
         
+        questions = questionGeneration.generate_questions(questionGeneration.load_contexts_answers(
+        'contexts_answers.json'
+        ))
+       
+
+        # Display the generated survey questions
+        self.survey_generator_trasnformer.display_survey(questions)
+
+        # Plot the features and their corresponding questions
+        #SurveyPrinter.plot_feature_frequencies(features_with_occurrences)
+        SurveyPrinter.plot_survey_questions(questions, title='Survey Generation via Context')
+
         
         
 
@@ -80,18 +92,7 @@ class SurveyApp:
         #SurveyPrinter.plot_feature_frequencies(features_with_occurrences)
         SurveyPrinter.plot_survey_questions(survey_questions, title='Survey Generation via Transformer')
 
-        questions = questionGeneration.generate_questions(questionGeneration.load_contexts_answers(
-        'contexts_answers.json'
-        ))
-       
-
-        # Display the generated survey questions
-        self.survey_generator_trasnformer.display_survey(questions)
-
-        # Plot the features and their corresponding questions
-        #SurveyPrinter.plot_feature_frequencies(features_with_occurrences)
-        SurveyPrinter.plot_survey_questions(questions, title='Survey Generation via Context')
-
+        
         
        
 

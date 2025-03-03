@@ -1,82 +1,42 @@
 {
     "1": {
-        "context": "Electric vehicles (EVs) are becoming more common as people become more conscious of the environmental impact of gasoline-powered cars. The global shift towards electric vehicles is expected to reduce carbon emissions significantly, especially as battery technology improves.",
-        "answer": "Very Likely"
+        "context": "Government policies, including tax credits and incentives, are accelerating the adoption of electric cars.",
+        "answer": "Likely"
     },
     "2": {
-        "context": "The rise of autonomous vehicles is expected to revolutionize transportation. Self-driving technology has the potential to reduce traffic accidents, improve road safety, and make transportation more efficient.",
+        "context": "The expansion of nationwide EV charging networks is improving convenience for electric car owners.",
         "answer": "Likely"
     },
     "3": {
-        "context": "Electric vehicles are often criticized for their reliance on non-renewable energy sources. Although EVs themselves are environmentally friendly, the electricity used to charge them may come from fossil fuels, reducing their overall environmental benefit.",
-        "answer": "Disagree"
+        "context": "Advancements in battery technology, including solid-state batteries, are improving energy efficiency, reducing charging time, and increasing the driving range of electric cars.",
+        "answer": "Likely"
     },
     "4": {
-        "context": "Governments around the world are investing in the infrastructure needed to support electric vehicles, including the installation of more charging stations. This is expected to increase the adoption of EVs in the coming years.",
-        "answer": "Very Likely"
+        "context": "Major automakers are committing to full electrification by 2035, investing heavily in the production of electric cars and sustainable mobility solutions.",
+        "answer": "Likely"
     },
     "5": {
-        "context": "Despite the environmental benefits of electric vehicles, some consumers still prefer traditional gasoline-powered cars due to their longer range, lower upfront costs, and more established infrastructure.",
-        "answer": "Neutral"
+        "context": "The growing awareness of environmental benefits, such as lower carbon emissions and reduced air pollution, is driving consumer preference towards electric cars.",
+        "answer": "Likely"
     },
     "6": {
-        "context": "The expansion of renewable energy sources, such as wind and solar power, is expected to make electric vehicles even more environmentally friendly, as more clean energy will be used to charge EVs.",
+        "context": "The high initial purchase cost of electric cars remains a significant barrier to adoption despite long-term savings on fuel and maintenance.",
         "answer": "Likely"
     },
     "7": {
-        "context": "Many consumers are hesitant to adopt electric vehicles due to concerns about the limited availability of charging stations, especially in rural or less-developed areas.",
-        "answer": "Disagree"
+        "context": "Limited availability of charging stations in rural and less-developed regions makes it difficult for many consumers to consider electric cars as a practical option.",
+        "answer": "Likely"
     },
     "8": {
-        "context": "As battery technology improves, electric vehicles are becoming more affordable and are expected to be on par with traditional vehicles in terms of pricing in the near future.",
-        "answer": "Very Likely"
+        "context": "Concerns about battery life, performance degradation over time, and the high cost of replacement discourage some consumers from switching to electric cars.",
+        "answer": "Likely"
     },
     "9": {
-        "context": "Electric vehicles are not only environmentally friendly but also provide significant long-term cost savings in terms of fuel and maintenance, making them an increasingly attractive option for consumers.",
-        "answer": "Very Likely"
+        "context": "The time required to charge an electric car, particularly on Level 1 and Level 2 chargers, remains a significant inconvenience compared to refueling gasoline vehicles.",
+        "answer": "Likely"
     },
     "10": {
-        "context": "The adoption of electric vehicles is slow in some regions due to a lack of incentives and high initial costs. However, the increasing availability of government subsidies is expected to accelerate adoption.",
-        "answer": "Likely"
-    },
-    "11": {
-        "context": "Autonomous vehicles are still in the experimental phase, and many people believe they are several years away from becoming a mainstream mode of transportation.",
-        "answer": "Neutral"
-    },
-    "12": {
-        "context": "In densely populated urban areas, electric vehicles are expected to reduce air pollution significantly, improving the quality of life for residents and reducing health problems caused by vehicle emissions.",
-        "answer": "Very Likely"
-    },
-    "13": {
-        "context": "The shift towards electric vehicles is being hindered by the high cost of raw materials used in the manufacturing of batteries, such as lithium and cobalt, which are currently in limited supply.",
-        "answer": "Disagree"
-    },
-    "14": {
-        "context": "Public transportation systems are increasingly turning to electric buses and trains as part of efforts to reduce emissions and combat climate change, with some cities already implementing large-scale electrification programs.",
-        "answer": "Very Likely"
-    },
-    "15": {
-        "context": "While electric vehicles are much more environmentally friendly than gasoline-powered cars, the disposal of EV batteries at the end of their life cycle presents a growing challenge.",
-        "answer": "Likely"
-    },
-    "16": {
-        "context": "With the rising popularity of electric vehicles, traditional car manufacturers are investing heavily in the development of EVs to stay competitive in the automotive industry.",
-        "answer": "Very Likely"
-    },
-    "17": {
-        "context": "Despite the environmental benefits, some people are concerned that the production of electric vehicle batteries can be damaging to the environment due to mining and manufacturing processes.",
-        "answer": "Disagree"
-    },
-    "18": {
-        "context": "As electric vehicles become more mainstream, the cost of batteries is expected to decrease, making EVs more affordable for a wider range of consumers.",
-        "answer": "Very Likely"
-    },
-    "19": {
-        "context": "The integration of renewable energy sources into the grid is essential for maximizing the environmental benefits of electric vehicles, as it ensures that EVs are charged with clean energy.",
-        "answer": "Likely"
-    },
-    "20": {
-        "context": "Consumers in rural areas may be slower to adopt electric vehicles due to concerns about long-distance driving and the availability of charging stations.",
-        "answer": "Neutral"
+        "context": "Resale value makes potential buyers hesitant to invest in electric cars.",
+        "answer": "Unlikely"
     }
 }

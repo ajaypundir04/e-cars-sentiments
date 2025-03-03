@@ -117,3 +117,23 @@ graph TD
 ```
 
 ![Workflow](Workflow.png) 
+
+#### fine tune Flow
+```
+sequenceDiagram
+    participant User
+    participant DataLoader
+    participant BERTModel
+    participant Trainer
+    participant Evaluation
+    
+    User->>DataLoader: Provide labeled EV sentiment dataset
+    DataLoader->>BERTModel: Tokenize words and encode labels
+    BERTModel->>Trainer: Train model on dataset (fine-tuning)
+    Trainer->>BERTModel: Update weights using loss optimization
+    BERTModel->>Evaluation: Test model on validation dataset
+    Evaluation->>User: Provide accuracy, precision, recall, and F1-score
+    User->>BERTModel: Deploy fine-tuned model
+ ```
+
+![Workflow](fine-tune-bert.png) 
