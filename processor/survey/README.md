@@ -102,3 +102,6 @@ python -m executor.survey_creator --mode=file --language=EN --num_features=5
 - `--mode`: `url` or `file` to specify the source of input data.
 - `--language`: The language code (e.g., `EN`, `DE`).
 - `--num_features`: The number of top features to extract for survey generation.
+
+##### Survey Form
+https://forms.gle/w68GXHNJRFZx3Pkc9
