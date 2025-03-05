@@ -1,5 +1,6 @@
 import logging
 from handler.feature_handler import FeatureHandler
+from processor.survey.question_generator import QuestionGeneration
 from utils.log_utils import LoggerManager
 from handler.category_handler import CategoryHandler
 
@@ -11,7 +12,8 @@ class SurveyGenerator:
         self.feature_analysis_app = FeatureHandler(log_level)
         self.category_handler = CategoryHandler()  # New CategoryHandler instance
     
-    def generate_survey(self, mode, language, keyword, num_features,file_paths = ['stats/ev_china.md','stats/ev_germany.md','stats/ev_norway.md','stats/hybrid_germany.md', 'stats/stats.md', 'stats/reviews.csv']):
+    def generate_survey(self, mode, language, keyword, num_features,
+    file_paths = ['stats/ev_china.md','stats/ev_germany.md','stats/ev_norway.md','stats/hybrid_germany.md', 'stats/stats.md', 'stats/reviews.csv']):
         """
         Generates survey questions based on the top features extracted from FeatureHandler.
         
@@ -120,7 +122,7 @@ class SurveyGenerator:
         """
         likert_scale = ["Not Important", "Slightly Important", "Moderately Important", "Very Important", "Extremely Important"]
         
-        print("Survey Questions:")
+        print("Survey Questions :")
         for i, question in enumerate(survey_questions, start=1):
             print(f"{i}. {question}")
             print("Response options: " + ", ".join(likert_scale))

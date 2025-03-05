@@ -27,7 +27,7 @@ class QuestionGenerationWorkflow:
         file_paths = ['stats/ev_china.md', 'stats/ev_germany.md', 'stats/ev_norway.md', 
                       'stats/hybrid_germany.md', 'stats/stats.md']
         for file_path in file_paths:
-            passage_summary = summarizer.summarize_passages(file_path)
+            passage_summary = summarizer.summarize_data(file_path)
             self.logger.info(f"passage_summary::${passage_summary}")
             question = question_generator.generate_question(passage_summary)
             self.logger.info(f"Generated Likert Question: {question}")

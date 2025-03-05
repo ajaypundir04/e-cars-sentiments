@@ -2,10 +2,17 @@ import ast
 import configparser
 import logging
 import argparse
+from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
-from prediction.ml_prediction import ECarSentimentPrediction
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.metrics.pairwise import cosine_similarity
+import seaborn as sns
+from prediction.ml_prediction import ElectricCarSentimentPrediction
 from processor.transformer_analyser import TransformerSentimentAnalyzer
+from transformer.sentiment_analyzer import TransformerMultilingualSentimentAnalyzer
+
 from utils.log_utils import LoggerManager
 from processor.processor import DataProcessor
 from output.sentiment_plotter import SentimentPlotter
@@ -18,8 +25,9 @@ class SentimentAnalysisApp:
         logger_manager = LoggerManager(log_level)
         self.logger = logger_manager.get_logger(self.__class__.__name__)
         self.data_processor = DataProcessor(log_level)
-        self.ml_prediction = ECarSentimentPrediction()
+        self.ml_prediction =  ElectricCarSentimentPrediction("ElectricCarData_Clean.csv")
         self.transformer_analyzer = TransformerSentimentAnalyzer()
+        self.multi_sentiment_analyzer = TransformerMultilingualSentimentAnalyzer()
 
 
     def get_keywords(self, language):
@@ -107,11 +115,19 @@ class SentimentAnalysisApp:
         )
 
         # Plot aggregated sentiment analysis results from URLs
+        font_path= None
+        if(language == 'CN'):
+            font_path = 'output/cn_ft.otf'
         SentimentPlotter.plot_sentiment_analysis_with_words(
             aggregated_sentiment_words, aggregated_sentiment_text, 
             aggregated_positive_factors, aggregated_negative_factors, 
-            aggregated_neutral_factors, "Sentiment Analysis with Web Crawler"
+            aggregated_neutral_factors, "Sentiment Analysis with Web Crawler", cn_font_path=font_path
         )
+        map_max = {   "aggregated_positive_factors": aggregated_positive_factors,
+            "aggregated_negative_factors": aggregated_negative_factors,
+            "aggregated_neutral_factors": aggregated_neutral_factors
+        } 
+        self.logger.info(f'---------------------------------------------------- ${map_max}')
         return aggregated_positive_factors, aggregated_negative_factors, aggregated_neutral_factors
 
     def process_from_file(self, file_paths, keyword, language):
@@ -133,6 +149,8 @@ class SentimentAnalysisApp:
         )
         return aggregated_positive_factors, aggregated_negative_factors, aggregated_neutral_factors
 
+    def prediction(self):
+        self.ml_prediction.run()
 
     def process_survey(self, language):
         """
@@ -218,7 +236,7 @@ class SentimentAnalysisApp:
         predictions = self.ml_prediction.run(X,y)
         SentimentPlotter.plot_predictions(predictions)
 
-    def process_transformer(self, language, keyword):
+    def process_transformer_url(self, language, keyword):
         """
         Process and perform sentiment analysis using Transformer model.
         """
@@ -226,43 +244,140 @@ class SentimentAnalysisApp:
 
         # Get the URLs from the keyword map
         urls = key_word_map['urls']
+        font_path= None
+        if(language == 'CN'):
+            font_path = 'output/cn_ft.otf'
+        self.multi_sentiment_analyzer.classify_sentiments_from_urls(urls, font_path)
+
+    def process_transformer_file(self, language, files):
+        """
+        Process and perform sentiment analysis using Transformer model.
+        """
+        key_word_map = self.get_keywords(language)
+
+        # Get the URLs from the keyword map
+        urls = key_word_map['urls']
+        font_path= None
+        if(language == 'CN'):
+            font_path = 'output/cn_ft.otf'
+        self.multi_sentiment_analyzer.classify_sentiments_from_urls(files, font_path)    
 
         # Process and aggregate data from URLs
-        _, aggregated_sentiment_text, _, _, _ = self.data_processor.process_and_aggregate_data(
-            urls, self.data_processor.process_data_with_url_keyword, keyword, key_word_map
-        )
+        #_, aggregated_sentiment_text, _, _, _ = self.data_processor.process_and_aggregate_data(
+        #    urls, self.data_processor.process_data_with_url_keyword, keyword, key_word_map
+        #)
 
         # Preprocess the aggregated text based on the language
-        preprocessed_texts = self.transformer_analyzer.preprocess_texts(aggregated_sentiment_text, language)
+        #preprocessed_texts = self.transformer_analyzer.preprocess_texts(aggregated_sentiment_text, language)
 
         # Perform sentiment analysis using Transformer on the preprocessed text
-        sentiments = self.transformer_analyzer.predict(preprocessed_texts)
+        #sentiments = self.transformer_analyzer.predict(preprocessed_texts)
 
         # Count positive, negative, and neutral sentiments
-        positive_count = sentiments.count(1)
-        negative_count = sentiments.count(0)
-        neutral_count = len(sentiments) - positive_count - negative_count  # Assuming binary classification
+        #positive_count = sentiments.count(1)
+        #negative_count = sentiments.count(0)
+        #neutral_count = len(sentiments) - positive_count - negative_count  # Assuming binary classification
 
         # Log and return results
-        self.logger.info(f"Positive Sentiment Count: {positive_count}")
-        self.logger.info(f"Negative Sentiment Count: {negative_count}")
-        self.logger.info(f"Neutral Sentiment Count: {neutral_count}")
+        #self.logger.info(f"Positive Sentiment Count: {positive_count}")
+        #self.logger.info(f"Negative Sentiment Count: {negative_count}")
+        #self.logger.info(f"Neutral Sentiment Count: {neutral_count}")
 
         # Plotting the results using the new plot method
-        SentimentPlotter.plot_transformer_sentiment_summary(positive_count, negative_count, neutral_count)
+        #SentimentPlotter.plot_transformer_sentiment_summary(positive_count, negative_count, neutral_count)
 
-        return positive_count, negative_count, neutral_count
+        #return positive_count, negative_count, neutral_count
 
 
 
+    def process_and_compare_sentiments(self, languages, keyword):
+        """
+        Processes sentiment analysis data from URLs for each language,
+        then computes and plots the cosine similarity between sentiment distributions.
+        Also identifies common and unique sentiment words across regions.
+
+        Args:
+            languages (list): List of language codes (e.g., ['CN', 'EN', 'NG', 'DE']).
+            keyword (str): Keyword for web scraping and sentiment extraction.
+
+        Returns:
+            dict: Dictionary containing sentiment similarity scores and word comparisons.
+        """
+        sentiment_data = {}
+        sentiment_words = {'Positive': {}, 'Negative': {}, 'Neutral': {}}
+
+        # Define background colors for different languages
+        region_colors = {
+            'CN': "#FFDDC1",  # Light Peach
+            'EN': "#C1E1C1",  # Light Green
+            'NG': "#D1C1E1",  # Light Purple
+            'DE': "#C1D1E1"   # Light Blue
+        }
+
+        # Process sentiment analysis for each language
+        for language in languages:
+            key_word_map = self.get_keywords(language)
+            urls = key_word_map['urls']
+            
+            aggregated_sentiment_words, aggregated_sentiment_text, aggregated_positive_factors, aggregated_negative_factors, aggregated_neutral_factors = self.data_processor.process_and_aggregate_data(
+                urls, self.data_processor.process_data_with_url_keyword, keyword, key_word_map
+            )
+
+            sentiment_data[language] = [
+                len(aggregated_positive_factors),
+                len(aggregated_negative_factors),
+                len(aggregated_neutral_factors)
+            ]
+
+            sentiment_words['Positive'][language] = set(aggregated_positive_factors)
+            sentiment_words['Negative'][language] = set(aggregated_negative_factors)
+            sentiment_words['Neutral'][language] = set(aggregated_neutral_factors)
+
+        # Compute cosine similarity
+        sentiment_matrix = np.array(list(sentiment_data.values()), dtype=np.float64)
+        similarity_matrix = cosine_similarity(sentiment_matrix)
+
+        # Create figure
+        fig, ax = plt.subplots(figsize=(10, 7))  # Adjust figure size
+
+        # Plot cosine similarity heatmap
+        sns.heatmap(similarity_matrix, annot=True, xticklabels=languages, yticklabels=languages, cmap="Blues", ax=ax)
+        ax.set_title("Cosine Similarity Between Sentiments of Different Regions")
+
+        # Add sentiment words per region in the same plot with different background colors
+        text_x_offset = len(languages) + 0.8  # Shift right outside heatmap
+
+        for i, language in enumerate(languages):
+            words = (
+                f"Positive: {', '.join(list(sentiment_words['Positive'][language])[:3])}\n"
+                f"Negative: {', '.join(list(sentiment_words['Negative'][language])[:3])}\n"
+                f"Neutral: {', '.join(list(sentiment_words['Neutral'][language])[:3])}"
+            )
+            ax.text(
+                text_x_offset, i + 0.5, words, va='center', fontsize=8,
+                bbox=dict(facecolor=region_colors.get(language, "white"), alpha=0.9, edgecolor='black', boxstyle="round,pad=0.3")
+            )
+
+        plt.show()
+        matrix_map = {
+            "similarity_matrix": similarity_matrix,
+            "sentiment_words": sentiment_words
+        }
+        self.logger.info(f"Completed Sentiment Analysis Comparison ${matrix_map}")
+
+        return {
+            "similarity_matrix": similarity_matrix,
+            "sentiment_words": sentiment_words
+        }
 
 
 if __name__ == '__main__':
+    SentimentPlotter._configure_fonts()
     parser = argparse.ArgumentParser(description="Run Sentiment Analysis on URLs, Files, Surveys, and Transformer-based Analysis.")
     
-    parser.add_argument('--mode', type=str, choices=['url', 'file', 'survey', 'transformer', 'both', 'all'], default='all',
-                        help="Mode to run the analysis: 'url', 'file', 'survey', 'transformer', 'both', or 'all'. Default is 'all'.")
-    parser.add_argument('--language', type=str, required=True,
+    parser.add_argument('--mode', type=str, choices=['url', 'file', 'survey', 'transformer', 'both', 'all', 'similarity', 'prediction'], default='all',
+                        help="Mode to run the analysis: 'url', 'file', 'survey', 'transformer', 'prediction' ,'both', or 'all'. Default is 'all'.")
+    parser.add_argument('--language', type=str, required=False,
                         help="Language code to use for analysis, e.g., 'EN', 'DE'.")
     parser.add_argument('--keyword', type=str, default='cars',
                         help="Keyword to search for in the analysis. Default is 'cars'.")
@@ -273,12 +388,19 @@ if __name__ == '__main__':
 
     if args.mode == 'url':
         app.process_from_url(args.language, args.keyword)
+        #app.process_transformer_url(args.language, args.keyword)
+    elif args.mode == 'transformer':
+        #app.process_from_url(args.language, args.keyword)
+        app.process_transformer_url(args.language, args.keyword)    
     elif args.mode == 'file':
         file_paths = ['stats/ev_china.md','stats/ev_germany.md','stats/ev_norway.md','stats/hybrid_germany.md', 'stats/stats.md', 'stats/reviews.csv']
         app.process_from_file(file_paths, args.keyword, args.language)
+        #app.process_transformer_file(args.language, args.keyword, file_paths)
+    elif args.mode == 'similarity':
+        app.process_and_compare_sentiments(['EN','DE','CN','NG'], 'None')
     elif args.mode == 'survey':
         app.process_survey(args.language)
-    elif args.mode == 'transformer':
-        app.process_transformer(args.language, args.keyword)
+    elif args.mode == 'prediction':
+       app.prediction()    
     else:
         app.run(args.language, args.keyword)

@@ -16,3 +16,4 @@ faiss-gpu
 sentence-transformers
 evaluate
 rouge_score
+seaborn

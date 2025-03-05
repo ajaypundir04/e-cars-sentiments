@@ -1,0 +1,42 @@
+{
+    "1": {
+        "context": "Government policies, including tax credits and incentives, are accelerating the adoption of electric cars.",
+        "answer": "Likely"
+    },
+    "2": {
+        "context": "The expansion of nationwide EV charging networks is improving convenience for electric car owners.",
+        "answer": "Likely"
+    },
+    "3": {
+        "context": "Advancements in battery technology, including solid-state batteries, are improving energy efficiency, reducing charging time, and increasing the driving range of electric cars.",
+        "answer": "Likely"
+    },
+    "4": {
+        "context": "Major automakers are committing to full electrification by 2035, investing heavily in the production of electric cars and sustainable mobility solutions.",
+        "answer": "Likely"
+    },
+    "5": {
+        "context": "The growing awareness of environmental benefits, such as lower carbon emissions and reduced air pollution, is driving consumer preference towards electric cars.",
+        "answer": "Likely"
+    },
+    "6": {
+        "context": "The high initial purchase cost of electric cars remains a significant barrier to adoption despite long-term savings on fuel and maintenance.",
+        "answer": "Likely"
+    },
+    "7": {
+        "context": "Limited availability of charging stations in rural and less-developed regions makes it difficult for many consumers to consider electric cars as a practical option.",
+        "answer": "Likely"
+    },
+    "8": {
+        "context": "Concerns about battery life, performance degradation over time, and the high cost of replacement discourage some consumers from switching to electric cars.",
+        "answer": "Likely"
+    },
+    "9": {
+        "context": "The time required to charge an electric car, particularly on Level 1 and Level 2 chargers, remains a significant inconvenience compared to refueling gasoline vehicles.",
+        "answer": "Likely"
+    },
+    "10": {
+        "context": "Resale value makes potential buyers hesitant to invest in electric cars.",
+        "answer": "Unlikely"
+    }
+}

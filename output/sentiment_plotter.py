@@ -1,14 +1,49 @@
+import os
 import matplotlib.pyplot as plt
+import requests
 from wordcloud import WordCloud
 from collections import Counter
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 import numpy as np
+from matplotlib import rcParams
+import matplotlib.font_manager as fm
+import seaborn as sns
+
 
 class SentimentPlotter:
+
     @staticmethod
-    def plot_sentiment_analysis_with_words(sentiment_words, sentiment_text, positive_factors, negative_factors, neutral_factors, plot_title="Sentiment Analysis"):
+    def _configure_fonts():
+        """Configure fonts for multilingual support"""
+        try:
+            # Try common fonts that support multiple languages
+            font_options = [
+                'Noto Sans CJK JP',  # Chinese/Japanese/Korean
+                'Arial Unicode MS',   # Windows/macOS
+                'DejaVu Sans',        # Linux
+                'WenQuanYi Zen Hei',  # Chinese
+                'Source Han Sans',     # Pan-CJK
+                'Microsoft JhengHei'  # Chinese
+            ]
+            
+            # Find the first available font
+            available_fonts = set(f.name for f in fm.fontManager.ttflist)
+            for font in font_options:
+                if font in available_fonts:
+                    rcParams['font.sans-serif'] = [font]
+                    break
+            
+            rcParams['axes.unicode_minus'] = False  # Fix minus sign display
+            
+        except Exception as e:
+            print(f"Font configuration error: {e}")
+
+   
+
+    @staticmethod
+    def plot_sentiment_analysis_with_words(sentiment_words, sentiment_text, positive_factors, negative_factors, neutral_factors, plot_title="Sentiment Analysis", cn_font_path=None):
         """
         Plots the sentiment analysis results in a pie chart, including positive, negative, and neutral factors.
         Also plots a word cloud, a frequency bar chart, and K-means clustering between factors.
@@ -26,6 +61,7 @@ class SentimentPlotter:
             'Negative': len(negative_factors),
             'Neutral': len(neutral_factors)
         }
+        SentimentPlotter._configure_fonts()
         
         # Check if there is any data to plot
         if not sentiment_counts or all(v == 0 for v in sentiment_counts.values()):
@@ -34,8 +70,10 @@ class SentimentPlotter:
 
         # Create a word cloud from the sentiment text
         combined_text = ' '.join(sentiment_text)
-        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(combined_text)
-
+        if(cn_font_path is not None):
+            wordcloud = WordCloud(width=800, height=400, background_color='white', font_path=cn_font_path).generate(combined_text)
+        else:
+            wordcloud = WordCloud(width=800, height=400, background_color='white').generate(combined_text)
         # Calculate word frequencies for the bar chart
         all_factors = positive_factors + negative_factors + neutral_factors
         word_frequencies = Counter(all_factors).most_common(10)  # Get top 10 words
@@ -72,8 +110,8 @@ class SentimentPlotter:
             neg_words = [word for word in cluster_words if word in negative_factors]
             neu_words = [word for word in cluster_words if word in neutral_factors]
             
-            top_pos_words = Counter(pos_words).most_common(3)
-            top_neg_words = Counter(neg_words).most_common(3)
+            top_pos_words = Counter(pos_words).most_common(10)
+            top_neg_words = Counter(neg_words).most_common(10)
             top_neu_words = Counter(neu_words).most_common(3)
             
             cluster_top_words[i] = {
@@ -129,6 +167,7 @@ class SentimentPlotter:
         # Show the plots
         plt.tight_layout()
         plt.show()
+
         
     @staticmethod
     def plot_survey_sentiment_summary(sentiment_summary):
@@ -223,3 +262,60 @@ class SentimentPlotter:
 
         # Show the plot
         plt.show()        
+
+
+    @staticmethod
+    def plot_sales_predictions(y_test, y_pred_knn, y_pred_rf, y_pred_lr, y_pred_lstm, benchmark_df):
+        """
+        Plots benchmark comparison and actual vs. predicted sales.
+
+        Args:
+            y_test (pd.Series): Actual sales values.
+            y_pred_knn (array): Predictions from KNN model.
+            y_pred_rf (array): Predictions from Random Forest model.
+            y_pred_lr (array): Predictions from Linear Regression model.
+            y_pred_lstm (array): Predictions from LSTM model.
+            benchmark_df (pd.DataFrame): Benchmark results for models.
+        """
+        # Print predictions before plotting
+        print("\n🔹 Model Predictions vs Actual Sales:\n")
+        print(f"KNN Predictions:\n{y_pred_knn[:5]}")
+        print(f"Random Forest Predictions:\n{y_pred_rf[:5]}")
+        print(f"Linear Regression Predictions:\n{y_pred_lr[:5]}")
+        print(f"LSTM Predictions:\n{y_pred_lstm[:5]}")
+        print("\n🔹 Benchmark Results:\n")
+        print(benchmark_df)
+
+        # Plot Benchmark Results
+        plt.figure(figsize=(10, 5))
+        sns.barplot(data=benchmark_df.melt(id_vars=["Model"]), x="Model", y="value", hue="variable")
+        plt.title("Benchmark Comparison of ML Models")
+        plt.xlabel("Model")
+        plt.ylabel("Error Metrics")
+        plt.show()
+
+        # Line Plot: Actual vs. Predicted
+        plt.figure(figsize=(10, 5))
+        plt.plot(y_test.values, label="Actual Sales", marker="o")
+        plt.plot(y_pred_knn, label="KNN Prediction", linestyle="--")
+        plt.plot(y_pred_rf, label="Random Forest Prediction", linestyle="--")
+        plt.plot(y_pred_lr, label="Linear Regression Prediction", linestyle="--")
+        plt.plot(y_pred_lstm, label="LSTM Prediction", linestyle="--")
+        plt.legend()
+        plt.xlabel("Sample Index")
+        plt.ylabel("Sales")
+        plt.title("Electric Car Sales Prediction Using ML Models")
+        plt.show()
+
+        # Scatter Plot: Actual vs. Predicted
+        plt.figure(figsize=(10, 5))
+        plt.scatter(y_test, y_pred_rf, label="Random Forest", alpha=0.6)
+        plt.scatter(y_test, y_pred_knn, label="KNN", alpha=0.6)
+        plt.scatter(y_test, y_pred_lr, label="Linear Regression", alpha=0.6)
+        plt.scatter(y_test, y_pred_lstm, label="LSTM", alpha=0.6)
+        plt.plot(y_test, y_test, "r-", label="Perfect Prediction")
+        plt.xlabel("Actual Price")
+        plt.ylabel("Predicted Price")
+        plt.title("Actual vs. Predicted Electric Car Prices")
+        plt.legend()
+        plt.show()

@@ -238,7 +238,7 @@ class Utils:
             return []
 
     @staticmethod
-    def scrape_data_without_user_with_seed_url(seed_url, keyword, tag='div', class_name=None, attr_name=None, max_depth=1):
+    def scrape_data_without_user_with_seed_url(seed_url, keyword=None, tag='div', class_name=None, attr_name=None, max_depth=1):
         """
         Scrapes data from a public website based on the provided seed URL, keyword, tag, and class/attribute.
         The function follows links from the seed URL to scrape additional pages up to a specified depth.

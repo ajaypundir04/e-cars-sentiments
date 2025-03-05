@@ -2,7 +2,6 @@ import logging
 from datasets import load_dataset
 from utils.log_utils import LoggerManager
 
-
 class DataLoader:
     def __init__(self, train_file="train.jsonl", valid_file="valid.jsonl", log_level=logging.INFO):
         logger_manager = LoggerManager(log_level)
@@ -13,6 +12,7 @@ class DataLoader:
 
     def load_data(self):
         self.logger.info("Loading dataset from files...")
+        # Load the dataset using Hugging Face's 'datasets' library
         self.dataset = load_dataset("json", data_files={"train": self.train_file, "validation": self.valid_file})
         self.logger.info("Dataset successfully loaded.")
         return self.dataset
