@@ -9,7 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics.pairwise import cosine_similarity
 import seaborn as sns
-from prediction.ml_prediction import ECarSentimentPrediction
+from prediction.ml_prediction import ElectricCarSentimentPrediction
 from processor.transformer_analyser import TransformerSentimentAnalyzer
 from transformer.sentiment_analyzer import TransformerMultilingualSentimentAnalyzer
 
@@ -25,7 +25,7 @@ class SentimentAnalysisApp:
         logger_manager = LoggerManager(log_level)
         self.logger = logger_manager.get_logger(self.__class__.__name__)
         self.data_processor = DataProcessor(log_level)
-        self.ml_prediction = ECarSentimentPrediction()
+        self.ml_prediction =  ElectricCarSentimentPrediction("ElectricCarData_Clean.csv")
         self.transformer_analyzer = TransformerSentimentAnalyzer()
         self.multi_sentiment_analyzer = TransformerMultilingualSentimentAnalyzer()
 
@@ -149,6 +149,8 @@ class SentimentAnalysisApp:
         )
         return aggregated_positive_factors, aggregated_negative_factors, aggregated_neutral_factors
 
+    def prediction(self):
+        self.ml_prediction.run()
 
     def process_survey(self, language):
         """
@@ -373,8 +375,8 @@ if __name__ == '__main__':
     SentimentPlotter._configure_fonts()
     parser = argparse.ArgumentParser(description="Run Sentiment Analysis on URLs, Files, Surveys, and Transformer-based Analysis.")
     
-    parser.add_argument('--mode', type=str, choices=['url', 'file', 'survey', 'transformer', 'both', 'all', 'similarity'], default='all',
-                        help="Mode to run the analysis: 'url', 'file', 'survey', 'transformer', 'both', or 'all'. Default is 'all'.")
+    parser.add_argument('--mode', type=str, choices=['url', 'file', 'survey', 'transformer', 'both', 'all', 'similarity', 'prediction'], default='all',
+                        help="Mode to run the analysis: 'url', 'file', 'survey', 'transformer', 'prediction' ,'both', or 'all'. Default is 'all'.")
     parser.add_argument('--language', type=str, required=False,
                         help="Language code to use for analysis, e.g., 'EN', 'DE'.")
     parser.add_argument('--keyword', type=str, default='cars',
@@ -398,5 +400,7 @@ if __name__ == '__main__':
         app.process_and_compare_sentiments(['EN','DE','CN','NG'], 'None')
     elif args.mode == 'survey':
         app.process_survey(args.language)
+    elif args.mode == 'prediction':
+       app.prediction()    
     else:
         app.run(args.language, args.keyword)

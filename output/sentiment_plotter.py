@@ -9,6 +9,8 @@ from sklearn.decomposition import PCA
 import numpy as np
 from matplotlib import rcParams
 import matplotlib.font_manager as fm
+import seaborn as sns
+
 
 class SentimentPlotter:
 
@@ -260,3 +262,60 @@ class SentimentPlotter:
 
         # Show the plot
         plt.show()        
+
+
+    @staticmethod
+    def plot_sales_predictions(y_test, y_pred_knn, y_pred_rf, y_pred_lr, y_pred_lstm, benchmark_df):
+        """
+        Plots benchmark comparison and actual vs. predicted sales.
+
+        Args:
+            y_test (pd.Series): Actual sales values.
+            y_pred_knn (array): Predictions from KNN model.
+            y_pred_rf (array): Predictions from Random Forest model.
+            y_pred_lr (array): Predictions from Linear Regression model.
+            y_pred_lstm (array): Predictions from LSTM model.
+            benchmark_df (pd.DataFrame): Benchmark results for models.
+        """
+        # Print predictions before plotting
+        print("\n🔹 Model Predictions vs Actual Sales:\n")
+        print(f"KNN Predictions:\n{y_pred_knn[:5]}")
+        print(f"Random Forest Predictions:\n{y_pred_rf[:5]}")
+        print(f"Linear Regression Predictions:\n{y_pred_lr[:5]}")
+        print(f"LSTM Predictions:\n{y_pred_lstm[:5]}")
+        print("\n🔹 Benchmark Results:\n")
+        print(benchmark_df)
+
+        # Plot Benchmark Results
+        plt.figure(figsize=(10, 5))
+        sns.barplot(data=benchmark_df.melt(id_vars=["Model"]), x="Model", y="value", hue="variable")
+        plt.title("Benchmark Comparison of ML Models")
+        plt.xlabel("Model")
+        plt.ylabel("Error Metrics")
+        plt.show()
+
+        # Line Plot: Actual vs. Predicted
+        plt.figure(figsize=(10, 5))
+        plt.plot(y_test.values, label="Actual Sales", marker="o")
+        plt.plot(y_pred_knn, label="KNN Prediction", linestyle="--")
+        plt.plot(y_pred_rf, label="Random Forest Prediction", linestyle="--")
+        plt.plot(y_pred_lr, label="Linear Regression Prediction", linestyle="--")
+        plt.plot(y_pred_lstm, label="LSTM Prediction", linestyle="--")
+        plt.legend()
+        plt.xlabel("Sample Index")
+        plt.ylabel("Sales")
+        plt.title("Electric Car Sales Prediction Using ML Models")
+        plt.show()
+
+        # Scatter Plot: Actual vs. Predicted
+        plt.figure(figsize=(10, 5))
+        plt.scatter(y_test, y_pred_rf, label="Random Forest", alpha=0.6)
+        plt.scatter(y_test, y_pred_knn, label="KNN", alpha=0.6)
+        plt.scatter(y_test, y_pred_lr, label="Linear Regression", alpha=0.6)
+        plt.scatter(y_test, y_pred_lstm, label="LSTM", alpha=0.6)
+        plt.plot(y_test, y_test, "r-", label="Perfect Prediction")
+        plt.xlabel("Actual Price")
+        plt.ylabel("Predicted Price")
+        plt.title("Actual vs. Predicted Electric Car Prices")
+        plt.legend()
+        plt.show()
