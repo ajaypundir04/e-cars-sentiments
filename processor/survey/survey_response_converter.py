@@ -21,17 +21,18 @@ class SurveyResponseConverter:
 
         # Define the questions corresponding to the columns (except the Timestamp column)
         self.questions = [
-            'How likely is electric car adoption to be accelerated by government policies?',
-            'How likely is the expansion of EV charging networks to be?',
-            'How likely are advances in battery technology to increase the driving range of electric cars?',
+            'How likely is the transition to EVs to occur?',
+            'How likely are governments around the world to tighten emission regulations?',
+            'How likely will EVs become the dominant mode of transportation worldwide?',
             'How likely are automakers to commit to full electrification by 2035?',
             'How likely is electric car preference to be related to climate change?',
-            'How likely is it that electric cars will be able to be used in the future?',
+            'How likely is it that governments will prioritize charging networks?',
             'Is it likely that electric cars will be more popular in rural areas?',
-            'How likely are some consumers to be discouraged from switching to electric cars?',
+            'How likely is the sale of new electric cars to be banned?',
             'How likely is it that charging an electric car will cause more inconvenience than refueling gasoline?',
-            'How likely is it that potential buyers will be reluctant to invest in an electric car?'
+            'How likely are consumers to be reluctant to switch to electric cars?'
         ]
+
         
         # Initialize the INI file path
         self.ini_file_path = ini_file_path

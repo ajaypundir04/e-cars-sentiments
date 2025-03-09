@@ -53,9 +53,6 @@ class SurveyApp:
         #SurveyPrinter.plot_feature_frequencies(features_with_occurrences)
         SurveyPrinter.plot_survey_questions(questions, title='Survey Generation via Context')
 
-        
-        
-
         # Generate the survey questions using the arguments
         survey = self.survey_generator.generate_survey(
             mode=args.mode,
@@ -75,22 +72,30 @@ class SurveyApp:
         SurveyPrinter.plot_feature_frequencies(features_with_occurrences)
         SurveyPrinter.plot_survey_questions(survey_questions)
 
-          # Generate the survey questions using the arguments
-        survey_transformer = self.survey_generator_trasnformer.generate_survey(
-            mode=args.mode,
-            language=args.language,
-            keyword=args.keyword
-        )
+
+
+        # Generate the survey questions using the arguments
+        #survey_transformer = self.survey_generator_trasnformer.generate_survey(
+         #   mode=args.mode,
+          #  language=args.language,
+          #  keyword=args.keyword
+        #)
+
+        contexts = self.survey_generator_trasnformer.generate_contexts(mode='file', file_paths=['stats/article.txt',
+                    'stats/article1.txt', 'stats/article_2.txt'])
+        self.survey_generator_trasnformer.save_contexts_to_json(contexts)
+        quiz = self.survey_generator_trasnformer.qg.generate_questions(self.survey_generator_trasnformer.qg
+                                                                       .load_contexts_answers('contexts_answers_1.json'))
 
         # Check if the survey is a dictionary and extract data accordingly
-        survey_questions = survey_transformer.get('survey_questions')
+        #survey_questions = quiz.get('survey_questions')
 
         # Display the generated survey questions
-        self.survey_generator_trasnformer.display_survey(survey_questions)
+        self.survey_generator_trasnformer.display_survey(quiz)
 
         # Plot the features and their corresponding questions
         #SurveyPrinter.plot_feature_frequencies(features_with_occurrences)
-        SurveyPrinter.plot_survey_questions(survey_questions, title='Survey Generation via Transformer')
+        SurveyPrinter.plot_survey_questions(quiz, title='Survey Generation via Transformer T5')
 
         
         

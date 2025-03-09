@@ -13,7 +13,8 @@ class SurveyGenerator:
         self.category_handler = CategoryHandler()  # New CategoryHandler instance
     
     def generate_survey(self, mode, language, keyword, num_features,
-    file_paths = ['stats/ev_china.md','stats/ev_germany.md','stats/ev_norway.md','stats/hybrid_germany.md', 'stats/stats.md', 'stats/reviews.csv']):
+    file_paths = ['stats/article.txt',
+                    'stats/article1.txt', 'stats/article_2.txt']):
         """
         Generates survey questions based on the top features extracted from FeatureHandler.
         

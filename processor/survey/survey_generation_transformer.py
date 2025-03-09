@@ -56,7 +56,7 @@ class TransformerSurveyGenerator:
 
         return all_contexts
 
-    def save_contexts_to_json(self, contexts, output_file='contexts_answers.json'):
+    def save_contexts_to_json(self, contexts, output_file='contexts_answers_1.json'):
         """
         Saves generated contexts to a JSON file.
         """
@@ -67,7 +67,7 @@ class TransformerSurveyGenerator:
 
     def generate_survey(self, mode, language, keyword, 
         file_paths=['stats/article.txt',
-                    'stats/article1.txt'],urls=None):
+                    'stats/article1.txt', 'stats/article_2.txt'],urls=None):
         """
         Generates survey questions based on the summarized context data for each file.
         Args:
@@ -143,7 +143,7 @@ class TransformerSurveyGenerator:
 if __name__ == "__main__":
     generator = TransformerSurveyGenerator()
     contexts = generator.generate_contexts(mode='file', file_paths=['stats/article.txt',
-                                                                    'stats/article1.txt'])
+                    'stats/article1.txt', 'stats/article_2.txt'])
     generator.save_contexts_to_json(contexts)
-    quiz = generator.qg.generate_questions(generator.qg.load_contexts_answers('contexts_answers.json'))
+    quiz = generator.qg.generate_questions(generator.qg.load_contexts_answers('contexts_answers_1.json'))
     print(quiz)

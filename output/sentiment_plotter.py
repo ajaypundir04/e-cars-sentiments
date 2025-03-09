@@ -296,7 +296,7 @@ class SentimentPlotter:
 
         # Line Plot: Actual vs. Predicted
         plt.figure(figsize=(10, 5))
-        plt.plot(y_test.values, label="Actual Sales", marker="o")
+        plt.plot(y_test, label="Actual Sales", marker="o")
         plt.plot(y_pred_knn, label="KNN Prediction", linestyle="--")
         plt.plot(y_pred_rf, label="Random Forest Prediction", linestyle="--")
         plt.plot(y_pred_lr, label="Linear Regression Prediction", linestyle="--")
