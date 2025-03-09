@@ -1,0 +1,28 @@
+Sentiment Analysis
+URL-Based Analysis extracts and processes web data in different languages:
+python -m executor.executor --mode=url --language=EN (English)
+python -m executor.executor --mode=url --language=DE (German)
+python -m executor.executor --mode=url --language=CN (Chinese)
+python -m executor.executor --mode=url --language=NG (Norwegian)
+python -m executor.executor --mode=transformer --language=EN (Sentiment Analysis using Transformer)
+
+Cosine Similarity Calculation compares datasets from different regions:
+python -m executor.executor --mode=similarity --language=NG
+
+Review sentiment analysis
+python -m executor.executor --mode=file --language=EN (Review Data Analysis)
+
+Survey Generation 
+python -m executor.survey_creator --mode=file --language=EN --num_features=10 (Create a survey)
+
+Survey Response Analysis
+python -m executor.executor --mode=survey --language=EN (Survey response analysis)
+
+Prediction electric car adoption:
+python -m executor.executor --mode=prediction --language=EN (Electric car adoption prediction)
+
+
+
+
+
+
