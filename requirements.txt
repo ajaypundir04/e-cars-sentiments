@@ -17,3 +17,4 @@ sentence-transformers
 evaluate
 rouge_score
 seaborn
+matplotlib
